@@ -1,5 +1,7 @@
 # Security Tooling Adoption & Intervention in AI-Assisted Software Development (AIDev)  
 
+> **Operational setup lives in [`SETUP.md`](./SETUP.md).** This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). `SETUP.md` covers the Claude Code workflow: uv-managed Python env, the `hf` CLI for AIDev access, MCP servers (GitHub + filesystem), the `data-miner` and `analyst` subagents, and the five `.claude/skills/`. Read this file to understand *what* the study does; read `SETUP.md` to actually run it.
+
 ## 0) Scope and goals
 This project studies **security tooling configuration (adoption)** at the repository level and **security automation intervention** at the pull-request (PR) level, using:
 - **AIDev** dataset: https://huggingface.co/datasets/hao-li/AIDev
@@ -106,6 +108,9 @@ Goal: Run Fisher/OR, regressions, BH correction; run robustness checks and docum
 ## 5) Step-by-step runbook
 
 ### Step 0 — Environment & reproducibility setup
+
+> Concrete commands for everything below — repo scaffolding, uv environment, `hf` CLI for the AIDev download, MCP config, subagents — are in [`SETUP.md`](./SETUP.md) §§ 2–4. The bullets here are the *requirements*; `SETUP.md` is the *recipe*.
+
 1) Create a repo for the study with:
    - `README.md` (this project)
    - `configs/` (tool identity lists, regex rules, search queries)

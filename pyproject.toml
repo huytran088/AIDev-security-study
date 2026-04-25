@@ -1,11 +1,12 @@
 [project]
-name = "aidev"
+name = "AIDev-security-study"
 version = "0.1.0"
-description = "Add your description here"
+description = "A study of impace of AI code generation on security, via mining the AIDev dataset. For MSR2026 challenge"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "huggingface-hub>=0.24",
+    "hf>=1.12.0",
+    "huggingface-hub>=0.27",
     "matplotlib>=3.9",
     "pandas>=2.2",
     "pyarrow>=16",
