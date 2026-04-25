@@ -1,0 +1,70 @@
+# version: 2026-04-25
+# category ∈ {SAST, SCA, Secrets, Fuzzing, CI Hardening}
+tools:
+  codeql:
+    category: SAST
+    workflow_uses:
+      - github/codeql-action
+    config_paths: []
+  semgrep:
+    category: SAST
+    workflow_uses:
+      - returntocorp/semgrep-action
+      - semgrep/semgrep-action
+    config_paths:
+      - .semgrep.yml
+      - .semgrep/
+  dependabot:
+    category: SCA
+    workflow_uses: []
+    config_paths:
+      - .github/dependabot.yml
+      - .github/dependabot.yaml
+  renovate:
+    category: SCA
+    workflow_uses:
+      - renovatebot/github-action
+    config_paths:
+      - renovate.json
+      - renovate.json5
+      - .renovaterc
+      - .renovaterc.json
+  snyk:
+    category: SCA
+    workflow_uses:
+      - snyk/actions
+    config_paths:
+      - .snyk
+  gitleaks:
+    category: Secrets
+    workflow_uses:
+      - gitleaks/gitleaks-action
+    config_paths:
+      - gitleaks.toml
+      - .gitleaks.toml
+  trufflehog:
+    category: Secrets
+    workflow_uses:
+      - trufflesecurity/trufflehog
+    config_paths: []
+  ossf_scorecard:
+    category: CI Hardening
+    workflow_uses:
+      - ossf/scorecard-action
+    config_paths: []
+  harden_runner:
+    category: CI Hardening
+    workflow_uses:
+      - step-security/harden-runner
+    config_paths: []
+  oss_fuzz:
+    category: Fuzzing
+    workflow_uses:
+      - google/oss-fuzz
+    config_paths:
+      - .clusterfuzzlite/
+  claude_code_security_review:
+    category: SAST
+    workflow_uses:
+      - anthropics/claude-code-security-review
+    config_paths: []

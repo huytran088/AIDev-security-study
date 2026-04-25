@@ -20,3 +20,10 @@ data_derived/
 # Logs
 logs/
 .ipynb_checkpoints/
+
+# Personal scratch (todo lists, lessons learned)
+tasks/
+
+# Claude
+.claude/
+.mcp.json

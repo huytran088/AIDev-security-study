@@ -1,0 +1,22 @@
+# version: 2026-04-25
+# secondary signal — apply only to bot-authored text
+tokens:
+  - 'CVE-\d{4}-\d+'
+  - 'GHSA-[\w-]{19}'
+  - 'CWE-\d+'
+keywords:
+  - vulnerability
+  - injection
+  - xss
+  - ssrf
+  - rce
+  - secret
+  - credential
+  - token
+  - leak
+  - unsafe
+  - path traversal
+  - sql injection
+  - command injection
+  - prototype pollution
+  - deserialization
