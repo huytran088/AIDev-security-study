@@ -8,3 +8,15 @@ wheels/
 
 # Virtual environments
 .venv
+
+
+# Data
+data_raw/
+data_derived/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+.ipynb_checkpoints/
