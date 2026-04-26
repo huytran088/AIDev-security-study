@@ -1,0 +1,24 @@
+{
+  "aidev_dataset_sha": "v3",
+  "compute_script": "analysis/scripts/rq1_compute.py",
+  "configs_hashes": {
+    "agent_fingerprints.yaml": {
+      "sha256": "5c5a03502c2e91214bbde33ab05367beeee0ac7acf7c6a90bee5d43060941763",
+      "version_header": "version: 2026-04-25"
+    },
+    "security_bots.txt": {
+      "sha256": "edbd29526cce9e97f40f26dc77a3111ba78f07a1534850710dc1943b89ee71e8",
+      "version_header": "version: 2026-04-26"
+    },
+    "security_patterns.yaml": {
+      "sha256": "12c66325bfafe6bb334c57822695e033c837133bad1580c79df0ef0890ebe934",
+      "version_header": "version: 2026-04-26"
+    },
+    "tools.yaml": {
+      "sha256": "6d2df0bc3bba611721e4638efec870d77a04700380c4f44894bc3a6f6480f02b",
+      "version_header": "version: 2026-04-25"
+    }
+  },
+  "generated_at_utc": "2026-04-26T19:21:59+00:00",
+  "run_id": "2026-04-25"
+}

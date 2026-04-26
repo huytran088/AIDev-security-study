@@ -1,0 +1,4 @@
+outcome,model,n_obs,n_repos,coef_agentic,or_or_irr,ci95_lo,ci95_hi,se_agentic,se_basis,p_raw,converged,alpha,log_likelihood,fallback_to_poisson,singleton_drop,n_repos_dropped_singleton,n_rows_dropped_singleton,n_levels_dropped_task_type,error,nb_failure_reason
+any_security_intervention,logit_fe,6212,100,-0.6113227267138504,0.5426326394804347,0.3746027399354309,0.7860331760527349,0.18906798844857872,cluster,0.0012234814254360885,True,,,False,2215,2215,24421,0,,
+security_intervention_count,poisson_quasi,13249,588,-0.3732742202142253,0.6884764128065946,0.49059264412883474,0.9661779006750847,0.17289446303671885,cluster,0.030852377160674342,True,,-2431.845440556836,True,2215,2215,24421,0,,nb_fit_raised
+rejected,logit_fe,12577,435,1.905290047201732,6.721356855685046,4.59026747687442,9.841831267799193,0.19457079518110346,cluster,1.2153438395637745e-22,True,,,False,2215,2215,24421,0,,

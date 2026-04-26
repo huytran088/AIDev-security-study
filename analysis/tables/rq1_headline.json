@@ -1,0 +1,46 @@
+{
+  "any_tool_pct": 40.35,
+  "bottom3_tools": [
+    {
+      "adoption_pct": 0.071,
+      "tool": "bandit"
+    },
+    {
+      "adoption_pct": 0.036,
+      "tool": "checkov"
+    },
+    {
+      "adoption_pct": 0.036,
+      "tool": "tfsec"
+    }
+  ],
+  "bottom_category": {
+    "adoption_pct": 0.392,
+    "adoption_rate": 0.003924,
+    "category": "fuzzing",
+    "n_ai_repos": 2803,
+    "n_configured": 11
+  },
+  "n_ai_repos": 2803,
+  "top3_tools": [
+    {
+      "adoption_pct": 29.718,
+      "tool": "dependabot"
+    },
+    {
+      "adoption_pct": 16.696,
+      "tool": "codeql"
+    },
+    {
+      "adoption_pct": 5.316,
+      "tool": "renovate"
+    }
+  ],
+  "top_category": {
+    "adoption_pct": 34.82,
+    "adoption_rate": 0.348198,
+    "category": "sca",
+    "n_ai_repos": 2803,
+    "n_configured": 976
+  }
+}

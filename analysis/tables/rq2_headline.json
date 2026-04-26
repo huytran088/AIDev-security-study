@@ -1,0 +1,78 @@
+{
+  "bh_sig_categories": [
+    {
+      "OR": 3.1166,
+      "OR_hi": 3.8663,
+      "OR_lo": 2.5123,
+      "level": "sast",
+      "p_adj": 6.921553481276034e-29
+    },
+    {
+      "OR": 3.364,
+      "OR_hi": 3.936,
+      "OR_lo": 2.875,
+      "level": "sca",
+      "p_adj": 6.26629971731842e-58
+    },
+    {
+      "OR": 2.8658,
+      "OR_hi": 4.5664,
+      "OR_lo": 1.7985,
+      "level": "ci_hardening",
+      "p_adj": 2.6106627883735576e-06
+    }
+  ],
+  "bh_sig_tools": [
+    {
+      "OR": 3.1286,
+      "OR_hi": 3.9018,
+      "OR_lo": 2.5086,
+      "level": "codeql",
+      "p_adj": 7.175655052957609e-28
+    },
+    {
+      "OR": 3.1225,
+      "OR_hi": 3.6861,
+      "OR_lo": 2.6451,
+      "level": "dependabot",
+      "p_adj": 4.089717938938869e-46
+    },
+    {
+      "OR": 2.5651,
+      "OR_hi": 4.2,
+      "OR_lo": 1.5666,
+      "level": "ossf_scorecard",
+      "p_adj": 7.018494098695698e-05
+    },
+    {
+      "OR": 3.8603,
+      "OR_hi": 5.922,
+      "OR_lo": 2.5164,
+      "level": "renovate",
+      "p_adj": 3.436626978221473e-12
+    }
+  ],
+  "n_AI_repos": 2803,
+  "n_categories_BH_sig_AI_gt_ctrl": 3,
+  "n_ctrl_repos": 1744,
+  "n_sparse_band_tools_excluded": 15,
+  "n_tools_BH_sig_AI_gt_ctrl": 4,
+  "n_underpowered_families": 2,
+  "sparse_band_excluded": [
+    "anchore",
+    "bandit",
+    "checkov",
+    "claude_code_security_review",
+    "gitleaks",
+    "govulncheck",
+    "harden_runner",
+    "microsoft_security_devops",
+    "oss_fuzz",
+    "semgrep",
+    "snyk",
+    "sonarqube",
+    "tfsec",
+    "trivy",
+    "trufflehog"
+  ]
+}

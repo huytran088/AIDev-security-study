@@ -1,0 +1,44 @@
+{
+  "any_security_intervention": {
+    "alpha": null,
+    "ci95_hi": 0.786,
+    "ci95_lo": 0.3746,
+    "converged": true,
+    "fallback_to_poisson": false,
+    "model": "logit_fe",
+    "or_or_irr": 0.5426,
+    "p_raw": 0.0012234814254360885
+  },
+  "n_prs_after_singleton_drop": 13249,
+  "n_repos_after_singleton_drop": 588,
+  "n_repos_dropped_singleton": 2215,
+  "rejected": {
+    "alpha": null,
+    "ci95_hi": 9.8418,
+    "ci95_lo": 4.5903,
+    "converged": true,
+    "fallback_to_poisson": false,
+    "model": "logit_fe",
+    "or_or_irr": 6.7214,
+    "p_raw": 1.2153438395637745e-22
+  },
+  "secondary": {
+    "cliffs_delta_any_intervention": -0.008672001408783521,
+    "cliffs_delta_any_intervention_magnitude": "negligible",
+    "mannwhitney_n_pairs": 4139,
+    "mannwhitney_p_count": 0.09394654277904903,
+    "mannwhitney_u_count": 8500811.5,
+    "n_agentic_for_delta": 9110,
+    "n_human_for_delta": 4139
+  },
+  "security_intervention_count": {
+    "alpha": null,
+    "ci95_hi": 0.9662,
+    "ci95_lo": 0.4906,
+    "converged": true,
+    "fallback_to_poisson": true,
+    "model": "poisson_quasi",
+    "or_or_irr": 0.6885,
+    "p_raw": 0.030852377160674342
+  }
+}
