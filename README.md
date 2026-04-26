@@ -1,6 +1,6 @@
 # Security Tooling Adoption & Intervention in AI-Assisted Software Development (AIDev)  
 
-> **Operational setup lives in [`SETUP.md`](./SETUP.md).** This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). `SETUP.md` covers the Claude Code workflow: uv-managed Python env, the `hf` CLI for AIDev access, MCP servers (GitHub + filesystem), the `data-miner` and `analyst` subagents, and the five `.claude/skills/`. Read this file to understand *what* the study does; read `SETUP.md` to actually run it.
+> **Operational setup lives in [`SETUP.md`](./SETUP.md).** This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). `SETUP.md` covers the Claude Code workflow: uv-managed Python env, the `hf` CLI for AIDev access, MCP servers (GitHub + filesystem), the six subagents (`data-miner` for Phases A/B/C, `intervention-classifier` for Phase D, `analyst` for Phase E compute, `reporter` for Phase E display — tutorial notebooks + REPORT.md, `reproducibility-auditor` for the §12 pre-publication audit, `code-simplifier` for tech-debt cleanup), the eleven `.claude/skills/` (now including `power-analysis` for pre-declared MDEs), the eleven `.claude/hooks/` that enforce protected paths and manifest writing, and the `.githooks/` pre-commit chain that blocks commits where `analysis/REPORT.md` or `analysis/tables/*_main.csv` disagree with `data_derived/latest/`. Read this file to understand *what* the study does; read `SETUP.md` to actually run it.
 
 ## 0) Scope and goals
 This project studies **security tooling configuration (adoption)** at the repository level and **security automation intervention** at the pull-request (PR) level, using:
@@ -122,17 +122,25 @@ Goal: Run Fisher/OR, regressions, BH correction; run robustness checks and docum
    - `GITHUB_TOKEN` with read-only scopes sufficient for repo contents and PR metadata.
 4) Implement caching for GitHub API responses to avoid rate-limit failures:
    - Cache key: `{endpoint}-{repo}-{params_hash}.json`
-5) Record:
-   - dataset version (AIDev v3, or exact DOI hash),
+5) Record per-run provenance in `data_derived/<YYYY-MM-DD>/run_manifest.json`:
+   - dataset version (AIDev DOI hash),
    - date of API collection,
-   - tool detection rule version.
+   - rule-set SHAs (`configs/*.yaml`/`*.txt`),
+   - seed, window, library versions (`uv pip freeze`), `uv.lock` SHA,
+   - inline-comment table choice (`pr_review_comments_v2` by default; see
+     §6.1 below),
+   - row counts of every output table.
+
+   See `SETUP.md §7.6` for the canonical schema; the `run-manifest` skill
+   ships a `write_manifest()` helper that both `data-miner` and
+   `intervention-classifier` should call before exiting.
 
 ---
 
 ### Step 1 — Construct AI repo cohort from AIDev
 1) Load the curated agentic PR table(s).
 2) Filter agentic PRs to your analysis window:
-   - Recommended window: PR created/updated timestamps up to **Aug 2025** (consistent with your plan).
+   - Recommended window: PR created/updated timestamps up to **Jul 31, 2025** (the AIDev v3 dataset cutoff).
 3) Extract AI repo list:
    - `AI_REPOS = unique(repo_full_name)` from curated agentic PR set.
 4) Extract PR outcomes for agentic PRs:
@@ -243,6 +251,12 @@ For each AI repo:
    - match distribution of PR sizes to agentic PRs using churn proxies (files changed, additions, deletions),
    - optionally match by task type if available.
 
+> **Canonical recipe:** see the `human-pr-sampling` skill (`SETUP.md §7.8`)
+> for the per-repo churn-quartile binning, sampling without replacement
+> via `numpy.random.default_rng(RANDOM_SEED)`, and shortfall logging to
+> `human_pr_sample_log.csv`. The `intervention-classifier` subagent
+> (`SETUP.md §6.3`) owns this step.
+
 **Deliverable:** `human_pr_sample.parquet`
 
 #### Extract intervention signals from AIDev PR artifacts
@@ -254,12 +268,18 @@ For **agentic PRs** and **sampled human PRs**, compute:
 
 Intervention sources (in priority order):
 1) Known tool identities (bot login list) in:
-   - PR comments
-   - PR reviews
-   - PR review comments (inline)
+   - PR comments (`pr_comments`)
+   - PR reviews (`pr_reviews`)
+   - PR review comments — inline (`pr_review_comments_v2`, **not** v1)
 2) Bot-authored text matching security patterns (Section 6.3)
 
-> Keep a mapping file `configs/security_identities.txt` listing logins for Dependabot, Renovate, etc., plus any discovered tool bots.
+> **Inline-comment table choice:** AIDev ships both `pr_review_comments`
+> (the v1 19,450-row table) and `pr_review_comments_v2`. Default to
+> `pr_review_comments_v2` for Phase D and record the choice (and row
+> count) in `run_manifest.json`. See the `intervention-rules` skill in
+> `SETUP.md §7.4`.
+
+> Keep a mapping file `configs/security_bots.txt` listing logins for Dependabot, Renovate, etc., plus any discovered tool bots.
 
 #### Extract PR outcomes
 For each PR:
@@ -334,14 +354,31 @@ Outcomes:
 - Count: `security_intervention_count`
 - Binary: `rejected` (closed without merge)
 
+> **Singleton-repo drop (mandatory for FE validity):** before fitting any
+> repo-FE model, drop repos that don't contain both `pr_type=='agentic'`
+> and `pr_type=='human'` rows in the analysis frame. The FE coefficient is
+> degenerate otherwise (all variation lives in the omitted category). The
+> `repo-fixed-effects` skill (`SETUP.md §7.9`) ships the one-line filter
+> idiom and a worked statsmodels example; the `analyst` agent must
+> document the singleton drop count in `analysis/tables/rq3_main.csv`.
+
 Recommended models:
 - Binary: logistic regression with **repo fixed effects** (or random intercept):
-  - `any_intervention ~ agentic + churn + task_type + time + (repo FE)`
+  - `any_intervention ~ agentic + churn + task_type + time + C(repo)`
+  - Cluster-robust SE on `repo_full_name` in addition to `C(repo)` — the
+    two are not redundant (FE absorb level differences, cluster SE handle
+    within-repo correlation in residuals).
 - Counts: **negative binomial regression** (preferred over Mann–Whitney due to zeros and clustering):
-  - `intervention_count ~ agentic + churn + task_type + time + (repo FE)`
+  - `intervention_count ~ agentic + churn + task_type + time + C(repo)`
+  - If `statsmodels.NegativeBinomial.fit_regularized()` fails to converge
+    or refuses `cov_type='cluster'`, fall back to **Poisson with
+    cluster-robust SE** as a quasi-likelihood approximation, and report
+    fit diagnostics (α̂, log-likelihood, convergence status) regardless.
 - Rejection: logistic regression:
-  - `rejected ~ agentic + any_intervention + churn + task_type + time + (repo FE)`
+  - `rejected ~ agentic + any_intervention + churn + task_type + time + C(repo)`
   - (Interpretation: association, not causation.)
+- Effect-size reporting: incidence rate ratio (IRR) for NB, odds ratio
+  (OR) for logit, both with cluster-robust 95% CI.
 
 If you keep your nonparametric/effect-size stack (acceptable as secondary):
 - Mann–Whitney U for counts **after within-repo matching**
@@ -372,13 +409,28 @@ If you keep your nonparametric/effect-size stack (acceptable as secondary):
 ---
 
 ## 10) Reporting checklist (what to include in the final paper)
-- Exact dataset version and tables used
+- Exact dataset version and tables used (including the inline-comment
+  table choice — `pr_review_comments_v2` by default — recorded in
+  `run_manifest.json`)
 - Exact API endpoints and rate-limit handling
 - Exact rule sets (tools, bots, fingerprints, security keywords), versioned
 - Matching method + balance diagnostics (SMD table)
 - Primary models + effect sizes + BH-adjusted p-values
-- Sensitivity analyses summary
-- Reproducibility: seed, caching strategy, and derived data schema
+- Singleton-repo drop count for RQ3 FE models (logged in
+  `analysis/tables/rq3_main.csv`)
+- Pre-declared minimum detectable effect sizes (MDEs) per test family,
+  recorded in `analysis/tables/power_analysis.csv` with both `pre-flight`
+  and `post-hoc` rows. Underpowered families (achieved power < 0.80) are
+  flagged in `analysis/REPORT.md §6`. See `SETUP.md §7.11` for the
+  pre-declared targets.
+- Sensitivity analyses summary (≥3 from §8)
+- Reproducibility: seed, caching strategy, derived data schema, and a
+  passing run of the `reproducibility-auditor` subagent against
+  `data_derived/latest` (see `SETUP.md §12`)
+- `analysis/REPORT.md` is generated by the `reporter` subagent from the
+  Jinja template + canonical CSVs; the pre-commit hook
+  (`SETUP.md §5.14`) refuses to commit a `REPORT.md` whose
+  `_run_id` frontmatter doesn't match `data_derived/latest/`.
 
 ---
 
