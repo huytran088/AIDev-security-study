@@ -1,22 +1,36 @@
-# version: 2026-04-25
+# version: 2026-04-26
 # secondary signal — apply only to bot-authored text
 tokens:
   - 'CVE-\d{4}-\d+'
   - 'GHSA-[\w-]{19}'
   - 'CWE-\d+'
+  # Word-boundary-anchored short acronyms. Without \b these were matching as
+  # substrings inside deployment URLs (utm_source -> rce), base64 payloads
+  # (random 3-letter spans), and identifiers — surfaced in the 2026-04-26
+  # Phase D event audit (vercel[bot], codecov[bot], codesandbox[bot]).
+  - '\brce\b'
+  - '\bxss\b'
+  - '\bssrf\b'
+  - '\bcsrf\b'
 keywords:
   - vulnerability
   - injection
-  - xss
-  - ssrf
-  - rce
-  - secret
-  - credential
-  - token
-  - leak
-  - unsafe
   - path traversal
   - sql injection
   - command injection
   - prototype pollution
   - deserialization
+  # Bare 'secret', 'token', 'leak', 'credential', 'unsafe' were too noisy:
+  # they hit coverage reports (utm_source/utm_token), version-bump bots
+  # (changeset 'token bumps'), and dep-update messages. Replaced with
+  # phrases that are unambiguous in security context.
+  - hardcoded secret
+  - hardcoded credential
+  - leaked credential
+  - leaked token
+  - exposed secret
+  - unsafe deserialization
+  - remote code execution
+  - cross-site scripting
+  - server-side request forgery
+  - cross-site request forgery

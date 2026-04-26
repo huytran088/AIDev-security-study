@@ -1,4 +1,4 @@
-# version: 2026-04-25
+# version: 2026-04-26
 dependabot[bot]
 renovate[bot]
 semgrep[bot]
@@ -9,3 +9,13 @@ trufflehog[bot]
 step-security-bot
 ossf-scorecard[bot]
 github-advanced-security[bot]
+# Added 2026-04-26 from Phase D event audit (top-N bot logins by event volume).
+# Each entry below is a dedicated security/SAST/SCA tool integration —
+# general-purpose AI code-review bots (coderabbitai, Copilot, cursor, claude,
+# gemini-code-assist, devin-ai-integration) and deployment/coverage bots
+# (vercel, codecov, codesandbox, nx-cloud, cloudflare-workers-and-pages,
+# changeset-bot) are intentionally excluded; the bot+keyword secondary
+# classifier already promotes their security-relevant comments.
+sonarqubecloud[bot]
+socket-security[bot]
+deepsource-io[bot]
