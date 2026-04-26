@@ -25,7 +25,10 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=7.2.0",
+    "jinja2>=3.1.6",
     "jupyterlab>=4.5.6",
+    "jupytext>=1.19.1",
+    "nbconvert>=7.17.1",
     "pytest>=9.0.3",
     "ruff>=0.15.12",
 ]
