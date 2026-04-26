@@ -14,9 +14,48 @@ tools:
     config_paths:
       - .semgrep.yml
       - .semgrep/
+  sonarqube:
+    category: SAST
+    workflow_uses:
+      - SonarSource/sonarqube-scan-action
+      - SonarSource/sonarcloud-github-action
+      - SonarSource/sonarqube-quality-gate-action
+    config_paths:
+      - sonar-project.properties
+  bandit:
+    category: SAST
+    workflow_uses:
+      - PyCQA/bandit-action
+      - tj-actions/bandit
+      - shundor/python-bandit-scan
+    config_paths:
+      - .bandit
+      - bandit.yaml
+      - bandit.yml
+  checkov:
+    category: SAST
+    workflow_uses:
+      - bridgecrewio/checkov-action
+    config_paths:
+      - .checkov.yml
+      - .checkov.yaml
+  tfsec:
+    category: SAST
+    workflow_uses:
+      - aquasecurity/tfsec-pr-commenter-action
+      - reviewdog/action-tfsec
+    config_paths:
+      - .tfsec/
+      - tfsec.yml
+  microsoft_security_devops:
+    category: SAST
+    workflow_uses:
+      - microsoft/security-devops-action
+    config_paths: []
   dependabot:
     category: SCA
-    workflow_uses: []
+    workflow_uses:
+      - dependabot/fetch-metadata
     config_paths:
       - .github/dependabot.yml
       - .github/dependabot.yaml
@@ -33,12 +72,35 @@ tools:
     category: SCA
     workflow_uses:
       - snyk/actions
+      - maximhq/snyk-actions
     config_paths:
       - .snyk
+  trivy:
+    category: SCA
+    workflow_uses:
+      - aquasecurity/trivy-action
+      - aquasecurity/setup-trivy
+    config_paths:
+      - trivy.yaml
+      - trivy.yml
+      - .trivyignore
+  anchore:
+    category: SCA
+    workflow_uses:
+      - anchore/sbom-action
+      - anchore/scan-action
+    config_paths: []
+  govulncheck:
+    category: SCA
+    workflow_uses:
+      - golang/govulncheck-action
+    config_paths: []
   gitleaks:
     category: Secrets
     workflow_uses:
       - gitleaks/gitleaks-action
+      - zricethezav/gitleaks-action
+      - reviewdog/action-gitleaks
     config_paths:
       - gitleaks.toml
       - .gitleaks.toml
@@ -46,6 +108,7 @@ tools:
     category: Secrets
     workflow_uses:
       - trufflesecurity/trufflehog
+      - edplato/trufflehog-actions-scan
     config_paths: []
   ossf_scorecard:
     category: CI Hardening
@@ -61,6 +124,7 @@ tools:
     category: Fuzzing
     workflow_uses:
       - google/oss-fuzz
+      - google/clusterfuzzlite
     config_paths:
       - .clusterfuzzlite/
   claude_code_security_review:
