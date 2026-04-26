@@ -1,29 +1,45 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
-
-
-# Data
-data_raw/
-data_derived/
-
-# Environment variables
+# ── secrets ─────────────────────────────────────────────────
 .env
+.env.*
+!.env.example
 
-# Logs
-logs/
+# ── Python / uv ─────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ── Jupyter ─────────────────────────────────────────────────
 .ipynb_checkpoints/
+analysis/notebooks/*.ipynb       # rendered; regenerate via render_notebooks.sh
 
-# Personal scratch (todo lists, lessons learned)
+# ── editors / OS ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ── bulk data: re-fetchable from public sources ─────────────
+data_raw/aidev/
+data_raw/github_cache/
+
+# ── derived data: keep manifests + small JSONs, ignore bulk ─
+data_derived/**/*.parquet
+data_derived/**/*.parquet.crc
+
+# Keep run_manifest.json and other small JSONs (allow-list overrides above):
+!data_derived/**/*.json
+
+# ── per-session scratch (per SETUP.md §2) ───────────────────
 tasks/
 
-# Claude
-.claude/
-.mcp.json
+# ── runtime logs (incl. github-mcp-audit.log; see SETUP.md §5.5) ──
+logs/
+
+# ── git-lfs cache (don't commit pointers' blob content) ─────
+.git-lfs/
