@@ -3,18 +3,16 @@
 *.sh text eol=lf
 *.py text eol=lf
 *.md text eol=lf
-
 # ── binary types (no diff, no merge) ────────────────────────
-*.png binary
-*.pdf binary
+*.png filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
 *.parquet binary
 *.parquet.crc binary
 *.gz binary
 *.zip binary
 *.xlsx binary
-
 # ── git-lfs: figures only ───────────────────────────────────
 # Per SETUP.md §11.6, regenerable PNG+PDF figures accumulate fast over the
 # study's lifetime. Storing them via LFS keeps the main pack lean.
-analysis/figures/*.png filter=lfs diff=lfs merge=lfs -text
-analysis/figures/*.pdf filter=lfs diff=lfs merge=lfs -text
+# analysis/figures/*.png filter=lfs diff=lfs merge=lfs -text
+# analysis/figures/*.pdf filter=lfs diff=lfs merge=lfs -text
