@@ -1,0 +1,922 @@
+[
+  {
+    "repo_full_name": "AdoptOpenJDK/openjdk-website",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-auto-merge.yml",
+    "line": 6,
+    "uses_coord": "adoptium/.github/.github/workflows/dependabot-auto-merge.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "Apollon77/ioBroker.alexa2",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-automerge.yml",
+    "line": 16,
+    "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "Azure/terraform",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/e2e.yaml",
+    "line": 35,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "Azure/terraform",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/pr-check.yaml",
+    "line": 18,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "BCG-X-Official/artkit",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/artkit-release-pipeline.yml",
+    "line": 385,
+    "uses_coord": "veracode/veracode-uploadandscan-action@master",
+    "matched_vendor_token": "veracode"
+  },
+  {
+    "repo_full_name": "Camelcade/Perl5-IDEA",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/push_and_pr.yml",
+    "line": 52,
+    "uses_coord": "./.github/workflows/_codeql.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "Flagsmith/flagsmith",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/.reusable-docker-build.yml",
+    "line": 151,
+    "uses_coord": "Flagsmith/actions/trivy-scan-image@v0.4.1",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "Flagsmith/flagsmith",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/platform-docker-trivy-scan.yml",
+    "line": 103,
+    "uses_coord": "Flagsmith/actions/trivy-scan-image@v0.4.1",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "HumanSignal/label-studio",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_pipeline.yml",
+    "line": 111,
+    "uses_coord": "./.github/workflows/gitleaks.yml",
+    "matched_vendor_token": "gitleaks"
+  },
+  {
+    "repo_full_name": "HumanSignal/label-studio",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_pipeline.yml",
+    "line": 121,
+    "uses_coord": "./.github/workflows/bandit.yml",
+    "matched_vendor_token": "bandit"
+  },
+  {
+    "repo_full_name": "HumanSignal/label-studio",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_pipeline_develop.yml",
+    "line": 15,
+    "uses_coord": "./.github/workflows/gitleaks.yml",
+    "matched_vendor_token": "gitleaks"
+  },
+  {
+    "repo_full_name": "HumanSignal/label-studio",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_pipeline_develop.yml",
+    "line": 22,
+    "uses_coord": "./.github/workflows/bandit.yml",
+    "matched_vendor_token": "bandit"
+  },
+  {
+    "repo_full_name": "IvanJosipovic/KubeUI",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/validate-renovate-config.yaml",
+    "line": 13,
+    "uses_coord": "IvanJosipovic/templates/.github/workflows/validate-renovate-config.yaml@main",
+    "matched_vendor_token": "renovate"
+  },
+  {
+    "repo_full_name": "JanDeDobbeleer/aliae",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/dependabot.yml",
+    "line": 12,
+    "uses_coord": "jandedobbeleer/workflows/.github/workflows/dependabot.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "JanDeDobbeleer/oh-my-posh",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot.yml",
+    "line": 12,
+    "uses_coord": "jandedobbeleer/workflows/.github/workflows/dependabot.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "OWASP/mastg",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/check-website-build.yml",
+    "line": 9,
+    "uses_coord": "OWASP/mas-website/.github/workflows/build-website-reusable.yml@main",
+    "matched_vendor_token": "owasp"
+  },
+  {
+    "repo_full_name": "OWASP/wrongsecrets",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dast-zap-test.yml",
+    "line": 27,
+    "uses_coord": "zaproxy/action-baseline@v0.15.0",
+    "matched_vendor_token": "zaproxy"
+  },
+  {
+    "repo_full_name": "Open-Systems-Pharmacology/PK-Sim",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/codeql.yml",
+    "line": 17,
+    "uses_coord": "Open-Systems-Pharmacology/Workflows/.github/workflows/GitHub_CodeQL.yml@main",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "PostHog/posthog",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build-hogql-parser-npm.yml",
+    "line": 34,
+    "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "PostHog/posthog",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build-hogql-parser.yml",
+    "line": 32,
+    "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "PostHog/posthog",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/container-images-ci.yml",
+    "line": 93,
+    "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "RocketChat/Rocket.Chat.ReactNative",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/organize_translations.yml",
+    "line": 26,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "Sylius/Sylius",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/auto-merge.yaml",
+    "line": 19,
+    "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "akheron/typera",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/automerge.yml",
+    "line": 10,
+    "uses_coord": "akheron/dependabot-cron-action@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "apache/pulsar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/pulsar-ci.yaml",
+    "line": 650,
+    "uses_coord": "lhotari/sandboxed-trivy-action@555963036b2012b44c1071508a236e569db28ebb",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "beeware/toga",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/dependabot-changenote.yml",
+    "line": 11,
+    "uses_coord": "beeware/.github/.github/workflows/dependabot-changenote.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "browserless/browserless",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/pr-checks.yml",
+    "line": 30,
+    "uses_coord": "./.github/workflows/merge-dependabot.yml",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "camunda/camunda",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/camunda-platform-release.yml",
+    "line": 936,
+    "uses_coord": "./.github/workflows/zeebe-snyk.yml",
+    "matched_vendor_token": "snyk"
+  },
+  {
+    "repo_full_name": "camunda/camunda",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci-zeebe.yml",
+    "line": 526,
+    "uses_coord": "./.github/workflows/zeebe-snyk.yml",
+    "matched_vendor_token": "snyk"
+  },
+  {
+    "repo_full_name": "celo-org/celo-monorepo",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/celo-monorepo.yml",
+    "line": 126,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "celo-org/celo-monorepo",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/containers.yaml",
+    "line": 30,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "charmbracelet/melt",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/dependabot-sync.yml",
+    "line": 13,
+    "uses_coord": "charmbracelet/meta/.github/workflows/dependabot-sync.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "cloudposse/atmos",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/codeql.yml",
+    "line": 187,
+    "uses_coord": "./.github/actions/remove-dependabot-semver-labels",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "coder/coder",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yaml",
+    "line": 1168,
+    "uses_coord": "./.github/actions/install-syft",
+    "matched_vendor_token": "syft"
+  },
+  {
+    "repo_full_name": "coder/coder",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/release.yaml",
+    "line": 217,
+    "uses_coord": "./.github/actions/install-syft",
+    "matched_vendor_token": "syft"
+  },
+  {
+    "repo_full_name": "dotCMS/core",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_1-pr.yml",
+    "line": 79,
+    "uses_coord": "./.github/workflows/cicd_comp_semgrep-phase.yml",
+    "matched_vendor_token": "semgrep"
+  },
+  {
+    "repo_full_name": "dotCMS/core",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/cicd_3-trunk.yml",
+    "line": 98,
+    "uses_coord": "./.github/workflows/cicd_comp_semgrep-phase.yml",
+    "matched_vendor_token": "semgrep"
+  },
+  {
+    "repo_full_name": "dotnet/docs",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-bot.yml",
+    "line": 45,
+    "uses_coord": "dotnet/docs-tools/actions/dependabot-bot@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "dotnet/docs-aspire",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-bot.yml",
+    "line": 45,
+    "uses_coord": "dotnet/docs-tools/actions/dependabot-bot@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "e2b-dev/fragments",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/validate-renovate-config.yaml",
+    "line": 18,
+    "uses_coord": "suzuki-shunsuke/github-action-renovate-config-validator@v2.0.0",
+    "matched_vendor_token": "renovate"
+  },
+  {
+    "repo_full_name": "electricitymaps/electricitymaps-contrib",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/CI.yml",
+    "line": 104,
+    "uses_coord": "./.github/workflows/codeql.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "firezone/firezone",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 257,
+    "uses_coord": "./.github/workflows/_codeql.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/check-qldoc.yml",
+    "line": 26,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage-metrics.yml",
+    "line": 28,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage-metrics.yml",
+    "line": 56,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage-pr-artifacts.yml",
+    "line": 55,
+    "uses_coord": "./merge/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage-timeseries.yml",
+    "line": 28,
+    "uses_coord": "./script/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage-update.yml",
+    "line": 33,
+    "uses_coord": "./ql/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/csv-coverage.yml",
+    "line": 32,
+    "uses_coord": "./script/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/mad_modelDiff.yml",
+    "line": 40,
+    "uses_coord": "./codeql-main/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/mad_regenerate-models.yml",
+    "line": 35,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/qhelp-pr-preview.yml",
+    "line": 37,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/query-list.yml",
+    "line": 35,
+    "uses_coord": "./codeql/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/rust.yml",
+    "line": 74,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/swift.yml",
+    "line": 65,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/codeql",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/validate-change-notes.yml",
+    "line": 29,
+    "uses_coord": "./.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/docs",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/generate-code-scanning-query-lists.yml",
+    "line": 51,
+    "uses_coord": "./codeql/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "github/docs",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/generate-code-scanning-query-lists.yml",
+    "line": 117,
+    "uses_coord": "./codeql/.github/actions/fetch-codeql",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "gofiber/contrib",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-on-demand.yml",
+    "line": 10,
+    "uses_coord": "gofiber/.github/.github/workflows/dependabot-on-demand.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "gofiber/fiber",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-on-demand.yml",
+    "line": 10,
+    "uses_coord": "gofiber/.github/.github/workflows/dependabot-on-demand.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "gofiber/recipes",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-on-demand.yml",
+    "line": 10,
+    "uses_coord": "gofiber/.github/.github/workflows/dependabot-on-demand.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "gofiber/storage",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-on-demand.yml",
+    "line": 10,
+    "uses_coord": "gofiber/.github/.github/workflows/dependabot-on-demand.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "gofiber/template",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-on-demand.yml",
+    "line": 10,
+    "uses_coord": "gofiber/.github/.github/workflows/dependabot-on-demand.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "grafana/alloy",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/snyk.yml",
+    "line": 16,
+    "uses_coord": "grafana/security-github-actions/.github/workflows/snyk_monitor.yml@00b4cb4a0e18bb81ce2ee07e3a1fdbbb0d9aa05b",
+    "matched_vendor_token": "snyk"
+  },
+  {
+    "repo_full_name": "grafana/jsonnet-libs",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/test-mixins.yml",
+    "line": 55,
+    "uses_coord": "step-security/changed-files@2e07db73e5ccdb319b9a6c7766bd46d39d304bad",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "grafana/loki",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/snyk.yml",
+    "line": 14,
+    "uses_coord": "grafana/security-github-actions/.github/workflows/snyk_monitor.yml@main",
+    "matched_vendor_token": "snyk"
+  },
+  {
+    "repo_full_name": "inference-labs-inc/subnet-2",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/nightly.yml",
+    "line": 188,
+    "uses_coord": "./.github/actions/trivy-sarif",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "inference-labs-inc/subnet-2",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/publish-docker.yaml",
+    "line": 58,
+    "uses_coord": "./.github/actions/trivy-sarif",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "inference-labs-inc/subnet-2",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/security.yml",
+    "line": 100,
+    "uses_coord": "./.github/actions/trivy-sarif",
+    "matched_vendor_token": "trivy"
+  },
+  {
+    "repo_full_name": "jaegertracing/jaeger",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/ci-orchestrator-stage3.yml",
+    "line": 28,
+    "uses_coord": "./.github/workflows/codeql.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "kube-burner/kube-burner",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/ci-tests.yml",
+    "line": 12,
+    "uses_coord": "./.github/workflows/codeql.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "langfuse/langfuse",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-rebase-stale.yml",
+    "line": 17,
+    "uses_coord": "orange-buffalo/dependabot-auto-rebase@fa9e05d7a8152381af0a92ffca942a0d46712544",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "langfuse/langfuse-python",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-rebase-stale.yml",
+    "line": 16,
+    "uses_coord": "orange-buffalo/dependabot-auto-rebase@fa9e05d7a8152381af0a92ffca942a0d46712544",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "liam-hq/liam",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/codeql.yml",
+    "line": 14,
+    "uses_coord": "route06/actions/.github/workflows/codeql.yml@3bcea5bf834ff2e0e6c912c1167fcc1fe05e49c2",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "mrwadams/stride-gpt",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/security.yml",
+    "line": 52,
+    "uses_coord": "pyupio/safety-action@v1",
+    "matched_vendor_token": "pyup"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build.yml",
+    "line": 40,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build.yml",
+    "line": 59,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build.yml",
+    "line": 85,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/checks.yml",
+    "line": 28,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/checks.yml",
+    "line": 46,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/docker.yml",
+    "line": 39,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/docker.yml",
+    "line": 59,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/docker.yml",
+    "line": 84,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/go-tests.yml",
+    "line": 26,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "netdata/netdata",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/packaging.yml",
+    "line": 43,
+    "uses_coord": "step-security/changed-files@v45",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "olsh/Feedly-Notifier",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/automerge.yml",
+    "line": 31,
+    "uses_coord": "fastify/github-action-merge-dependabot@v3.11.2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "open-telemetry/opentelemetry-dotnet",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 22,
+    "uses_coord": "./.github/workflows/codeql-analysis-steps.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "open-telemetry/opentelemetry-dotnet",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/codeql-analysis.yml",
+    "line": 13,
+    "uses_coord": "./.github/workflows/codeql-analysis-steps.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "opencv/opencv",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/4.x.yml",
+    "line": 10,
+    "uses_coord": "opencv/ci-gha-workflow/.github/workflows/OCV-CodeQL.yaml@main",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "projectdiscovery/cvemap",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dep-auto-merge.yml",
+    "line": 23,
+    "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "projectdiscovery/tlsx",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dep-auto-merge.yml",
+    "line": 23,
+    "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "pulearn/pulearn",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/safety.yml",
+    "line": 25,
+    "uses_coord": "shaypal5/python-safety-checker@v1.0.6",
+    "matched_vendor_token": "safety"
+  },
+  {
+    "repo_full_name": "sandrohanea/whisper.net",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/build-all.yml",
+    "line": 29,
+    "uses_coord": "./.github/workflows/codeql-github-actions.yml",
+    "matched_vendor_token": "codeql"
+  },
+  {
+    "repo_full_name": "scalar/scalar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 82,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "scalar/scalar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 100,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "scalar/scalar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 111,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "scalar/scalar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/ci.yml",
+    "line": 607,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "scalar/scalar",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/scalar-registry-preview-delete.yml",
+    "line": 29,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "seladb/PcapPlusPlus",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/check_dependabot.yml",
+    "line": 17,
+    "uses_coord": "marocchino/validate-dependabot@d8ae5c0d03dd75fbd0ad5f8ab4ba8101ebbd4b37",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "spring-projects/spring-kafka",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/merge-dependabot-pr.yml",
+    "line": 15,
+    "uses_coord": "spring-io/spring-github-workflows/.github/workflows/spring-merge-dependabot-pr.yml@v7",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "spring-projects/spring-kafka",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/trigger-dependabot-updates.yml",
+    "line": 7,
+    "uses_coord": "spring-io/spring-github-workflows/.github/workflows/spring-trigger-dependabot-updates.yml@main",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "streamlit/streamlit",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/semgrep.yml",
+    "line": 13,
+    "uses_coord": "snowflakedb/reusable-workflows/.github/workflows/semgrep-v2.yml@863ab71d1133652ae3e7d1480ca7a4cb0b4f240c",
+    "matched_vendor_token": "semgrep"
+  },
+  {
+    "repo_full_name": "swingerman/ha-dual-smart-thermostat",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-auto-merge.yml",
+    "line": 107,
+    "uses_coord": "fastify/github-action-merge-dependabot@v3",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "timbru31/cordova-plugin-lottie-splashscreen",
+    "cohort": "Control",
+    "workflow_path": ".github/workflows/linting.yml",
+    "line": 48,
+    "uses_coord": "fastify/github-action-merge-dependabot@v3.11.2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "timmo001/system-bridge",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/dependabot-automerge.yml",
+    "line": 17,
+    "uses_coord": "timmo001/workflows/.github/workflows/dependabot-automerge-any.yml@master",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "uxlfoundation/oneDAL",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/renovate-validation.yml",
+    "line": 34,
+    "uses_coord": "suzuki-shunsuke/github-action-renovate-config-validator@ee9f69e1f683ed0d08225086482b34fc9abe9300",
+    "matched_vendor_token": "renovate"
+  },
+  {
+    "repo_full_name": "uxlfoundation/scikit-learn-intelex",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/renovate-validation.yml",
+    "line": 33,
+    "uses_coord": "suzuki-shunsuke/github-action-renovate-config-validator@v2.1.0",
+    "matched_vendor_token": "renovate"
+  },
+  {
+    "repo_full_name": "vexxhost/atmosphere",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/image.yml",
+    "line": 39,
+    "uses_coord": "step-security/docker-login-action@c3e677aae8393bc9c81cfdf9709648720ea4bd4d",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "vexxhost/atmosphere",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/image.yml",
+    "line": 64,
+    "uses_coord": "step-security/docker-login-action@c3e677aae8393bc9c81cfdf9709648720ea4bd4d",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "vexxhost/atmosphere",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/image.yml",
+    "line": 71,
+    "uses_coord": "step-security/tag-push-action@3816dac78b3f61b986acdf67bd01277d10f42a7c",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "vexxhost/atmosphere",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/manila.yml",
+    "line": 56,
+    "uses_coord": "step-security/setup-uv@ccf0a26ce9117d9e99292b0ce953ea5d9ffe778e",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "vexxhost/atmosphere",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/pr.yaml",
+    "line": 26,
+    "uses_coord": "step-security/changed-files@60967b822d3001fa82242f8d6b4ed46bc3600a68",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "vscode-neovim/vscode-neovim",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/auto_merge.yml",
+    "line": 9,
+    "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+    "matched_vendor_token": "dependabot"
+  },
+  {
+    "repo_full_name": "wailsapp/wails",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/pr-master.yml",
+    "line": 24,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  },
+  {
+    "repo_full_name": "wailsapp/wails",
+    "cohort": "AI",
+    "workflow_path": ".github/workflows/upload-source-documents.yml",
+    "line": 18,
+    "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+    "matched_vendor_token": "step-security"
+  }
+]

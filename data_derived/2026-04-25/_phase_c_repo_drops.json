@@ -1,0 +1,134 @@
+[
+  {
+    "repo_full_name": "DragonJAR/n8n-workflows-es",
+    "cohort": "AI",
+    "reason": "http_451",
+    "last_status": 451
+  },
+  {
+    "repo_full_name": "Hi-Dolphin/datamax",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "MihaiCristianCondrea/Smart-Cleaner-for-Android",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "antiwork/flexile",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "antiwork/helper",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "antiwork/iffy",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "appdotbuild/platform",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "buster-so/buster",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "clauadv/cs2_webradar",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "elevenlabs/elevenlabs-docs",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "ensdomains/ensdomains-landing",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "faros-ai/airbyte-connectors",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "faros-ai/faros-community-edition",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "liuyanghejerry/painttyWidget",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "lunary-ai/lunary",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "plexguide/Huntarr.io",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "portiaAI/portia-sdk-python",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "reown-com/blockchain-api",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "teamkeel/keel",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "wealthsimple/llm-gateway",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  },
+  {
+    "repo_full_name": "wgzhao/dbeaver-agent",
+    "cohort": "AI",
+    "reason": "http_451",
+    "last_status": 451
+  },
+  {
+    "repo_full_name": "yosebyte/nodepass",
+    "cohort": "AI",
+    "reason": "REPO_NOT_FOUND",
+    "last_status": 404
+  }
+]

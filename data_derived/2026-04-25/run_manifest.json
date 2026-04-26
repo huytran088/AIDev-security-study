@@ -1,0 +1,514 @@
+{
+  "agent": "data-miner",
+  "aidev_dataset": {
+    "doi": "https://doi.org/10.5281/zenodo.16919272",
+    "record_id": "16919272",
+    "version_commit": "v3"
+  },
+  "configs": {
+    "agent_fingerprints.yaml": {
+      "sha256": "5c5a03502c2e91214bbde33ab05367beeee0ac7acf7c6a90bee5d43060941763",
+      "version_header": "version: 2026-04-25"
+    },
+    "security_bots.txt": {
+      "sha256": "0e7ac508784c426f9e32eadf38cda6bbb10a91d8ee5384dfb536a9b3a2916ab8",
+      "version_header": "version: 2026-04-25"
+    },
+    "security_patterns.yaml": {
+      "sha256": "2ed6668807285afac990135fbd95dd73833cde517567c1d651f43991f885a805",
+      "version_header": "version: 2026-04-25"
+    },
+    "tools.yaml": {
+      "sha256": "6d2df0bc3bba611721e4638efec870d77a04700380c4f44894bc3a6f6480f02b",
+      "version_header": "version: 2026-04-25"
+    }
+  },
+  "github_mcp": {
+    "cumulative_audit_log_entries": 42122,
+    "cumulative_contents_cache_files": 23579,
+    "cumulative_pr_list_cache_files": 7709,
+    "cumulative_repo_meta_cache_files": 5411,
+    "cumulative_search_cache_files": 831,
+    "cumulative_tree_cache_files": 4585,
+    "endpoint_or_image": "https://api.github.com",
+    "phase_c_cache_hit_rate": 0.0,
+    "phase_c_cache_hits_200": 0,
+    "phase_c_cache_hits_404": 0,
+    "phase_c_live_calls": 0,
+    "phase_c_total_requests": 0,
+    "resume_run_note": "This run was a Phase B resume: previous run hit a core API rate limit at ~1000 candidates screened. Resume re-ran --step screen with cached PR-list responses (1444 cache hits) plus 2647 live calls, then re-ran match+balance over the now-larger eligible pool of 2657 controls. Pre-resume pairs=693; post-resume pairs=1744 (gained 1051; 1051 of the 1729 previously stratum-empty unmatched AI repos found a match in this run). Caliper, screen quota, matching ratio, and seed are unchanged.",
+    "this_run_cache_hit_rate": 0.353,
+    "this_run_cache_hits_200": 1444,
+    "this_run_cache_hits_404": 0,
+    "this_run_live_calls": 2647,
+    "this_run_total_requests": 4091,
+    "transport": "rest"
+  },
+  "intervention_source_choice": {
+    "pr_review_comments_table": "pr_review_comments_v2",
+    "rationale": "Defaults to v2 per the intervention-rules skill; Phase B does not consume either inline-comments table but the field is required by the manifest schema."
+  },
+  "outputs": {
+    "agentic_prs.parquet": {
+      "rows": 33531,
+      "sha256": "82945d1e698eba739d12b168ab119f43e1be2461c0973d92135682da5f397532"
+    },
+    "ai_repos.csv": {
+      "rows": 2803,
+      "sha256": "fb799918f3c24070836aee0be208547119c9f8af123da2b30078264b5d9dd962"
+    },
+    "balance_table.csv": {
+      "rows": 89,
+      "sha256": "30c5d12aaac42046cc4d0a7ab603dc4f21d97dba00d0bbaa343bc6804b20b112"
+    },
+    "control_repos.csv": {
+      "rows": 1744,
+      "sha256": "af14f96e318c812137a0513c7cc93ab635e2e3d58d33d4829302fe4768c56233"
+    },
+    "repo_matching_pairs.csv": {
+      "rows": 1744,
+      "sha256": "d7a4450794336ea7b39b7517a83a6b4b55f533e5c6a3501e96e43f77217533b7"
+    },
+    "repo_security_adoption.parquet": {
+      "rows": 2161,
+      "sha256": "2f20caaacb80be13f09fd1d8c21ab519a0eaa5a583ca99292b0ba01b8fb3e86c"
+    },
+    "repo_security_adoption_wide.parquet": {
+      "rows": 4547,
+      "sha256": "54b1d547f71dc7bef770b48bb08ea6fabd62e3223f2f147221203c1a239aefce"
+    }
+  },
+  "phase": [
+    "A",
+    "B",
+    "C"
+  ],
+  "phase_b": {
+    "ai_meta_drops": {
+      "n_404": 20,
+      "n_after_drop": 2706,
+      "n_archived": 45,
+      "n_fork": 30,
+      "n_input_ai_repos": 2803,
+      "n_other_err": 2
+    },
+    "coverage_notes": "Phase B was resumed on 2026-04-25T18:54Z after the initial run hit the GitHub core API rate limit at ~1000 candidates screened. The resume re-ran --step screen over all 43,628 in-AI-stratum candidates (with SCREEN_QUOTA_MULT=1 cap per stratum), using 1444 cached PR-list responses plus 2647 live calls. The eligible pool grew from 977 to 2657 controls. Re-running match (deterministic with RANDOM_SEED=20260101) yielded 1744 pairs vs the pre-resume 693, with worst post-match |SMD|=0.0569 on log_stars (well under 0.1). Of the 1729 stratum-empty unmatched AI repos in the pre-resume run, 1051 now have a match. The remaining 962 unmatched AI repos break down as 48 still stratum-empty (no candidates returned by GitHub Search at all) and 914 caliper-or-no-replacement misses (by design - widening the caliper or allowing replacement is out of scope per the locked study defaults).",
+    "knobs": {
+      "caliper_sigma": 0.25,
+      "candidates_per_bucket": 100,
+      "matching_ratio": "1:1",
+      "min_stars": 100,
+      "n_pr_screen": 50,
+      "replacement": false
+    },
+    "match_stats": {
+      "n_pairs": 1744,
+      "n_unique_controls": 1744,
+      "n_unmatched_ai": 962,
+      "pairs_gained_in_resume": 1051,
+      "post_resume_unmatched_breakdown": {
+        "note": "The 48 still-stratum-empty repos are in (lang, stars_bin, year, owner_type) cells that have zero candidates returned by GitHub Search across the entire CANDIDATES_PER_BUCKET=100 sweep, including 47 noted in the pre-resume diagnosis. The 914 caliper-or-quota misses include the original 284 caliper misses reported pre-resume plus newly-revealed misses from now-screened strata (no replacement, so high-density strata exhaust eligible controls before all AI repos are matched). Widening the caliper or replacement is out of scope.",
+        "stratum_empty_zero_eligible": 48,
+        "stratum_has_eligible_caliper_miss_or_used": 914
+      },
+      "pre_resume_n_pairs": 693,
+      "pre_stratum_empty_now_matched": 1051,
+      "pre_stratum_empty_still_unmatched": 678,
+      "pre_stratum_empty_unmatched_ai": 1729,
+      "worst_post_match_abs_smd": 0.05693381214328209,
+      "worst_post_match_covariate": "log_stars"
+    },
+    "matching_strategy": "Exact match on (language, stars_bin in [100-199, 200-499, 500-999, 1000+], created_year, owner_type) + 1:1 nearest-neighbor on z-scored (log(stars+1), n_in_window_prs) without replacement, with a 0.25 sigma caliper on log(stars+1). The caliper sigma is the AI-cohort global standard deviation of log(stars+1), not the per-stratum sigma, because many strata have <=2 candidates which gives an unreliable per-stratum sigma. Z-scores for the NN distance use per-stratum pooled (AI + candidates) std, with the AI-cohort global sigma as fallback in degenerate strata. AIDev stars/language are authoritative for the AI side; GitHub provides AI owner_type and created_at and all control covariates.",
+    "screen_stats": {
+      "fingerprint_config_sha256": "5c5a03502c2e91214bbde33ab05367beeee0ac7acf7c6a90bee5d43060941763",
+      "n_candidates_screened": 2759,
+      "n_dropped_fingerprint": 102,
+      "n_eligible": 2657,
+      "n_pr_screen_per_candidate": 50,
+      "pre_resume_n_dropped_fingerprint": 23,
+      "pre_resume_n_eligible": 977,
+      "pre_resume_n_screened": 1000,
+      "screen_quota_mult": 1
+    },
+    "search_stats": {
+      "n_buckets": 831,
+      "n_candidates_total": 60948
+    }
+  },
+  "phase_c": {
+    "cache_hit_rate": 0.0,
+    "category_configured_rate_by_cohort": {
+      "AI": {
+        "ci_hardening_any": 0.035319300749197285,
+        "fuzzing_any": 0.00392436674991081,
+        "sast_any": 0.17481270067784516,
+        "sca_any": 0.3481983589011773,
+        "secrets_any": 0.009632536567962896
+      },
+      "Control": {
+        "ci_hardening_any": 0.01261467889908257,
+        "fuzzing_any": 0.0017201834862385322,
+        "sast_any": 0.06364678899082568,
+        "sca_any": 0.13704128440366972,
+        "secrets_any": 0.005160550458715597
+      }
+    },
+    "first_seen_at_collected": false,
+    "live_api_calls": 0,
+    "long_form_rows": 2161,
+    "n_unknown_security_uses": 115,
+    "repo_count_dropped": 22,
+    "repo_count_total": 4547,
+    "repo_drops": [
+      {
+        "cohort": "AI",
+        "last_status": 451,
+        "reason": "http_451",
+        "repo_full_name": "DragonJAR/n8n-workflows-es"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "Hi-Dolphin/datamax"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "MihaiCristianCondrea/Smart-Cleaner-for-Android"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "antiwork/flexile"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "antiwork/helper"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "antiwork/iffy"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "appdotbuild/platform"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "buster-so/buster"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "clauadv/cs2_webradar"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "elevenlabs/elevenlabs-docs"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "ensdomains/ensdomains-landing"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "faros-ai/airbyte-connectors"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "faros-ai/faros-community-edition"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "liuyanghejerry/painttyWidget"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "lunary-ai/lunary"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "plexguide/Huntarr.io"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "portiaAI/portia-sdk-python"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "reown-com/blockchain-api"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "teamkeel/keel"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "wealthsimple/llm-gateway"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 451,
+        "reason": "http_451",
+        "repo_full_name": "wgzhao/dbeaver-agent"
+      },
+      {
+        "cohort": "AI",
+        "last_status": 404,
+        "reason": "REPO_NOT_FOUND",
+        "repo_full_name": "yosebyte/nodepass"
+      }
+    ],
+    "tools_yaml_sha256": "6d2df0bc3bba611721e4638efec870d77a04700380c4f44894bc3a6f6480f02b",
+    "unknown_security_uses_path": "data_derived/2026-04-25/_phase_c_unknown_security_uses.json",
+    "unknown_security_uses_sample": [
+      {
+        "cohort": "AI",
+        "line": 6,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "AdoptOpenJDK/openjdk-website",
+        "uses_coord": "adoptium/.github/.github/workflows/dependabot-auto-merge.yml@main",
+        "workflow_path": ".github/workflows/dependabot-auto-merge.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 16,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "Apollon77/ioBroker.alexa2",
+        "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+        "workflow_path": ".github/workflows/dependabot-automerge.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 35,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "Azure/terraform",
+        "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+        "workflow_path": ".github/workflows/e2e.yaml"
+      },
+      {
+        "cohort": "AI",
+        "line": 18,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "Azure/terraform",
+        "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+        "workflow_path": ".github/workflows/pr-check.yaml"
+      },
+      {
+        "cohort": "Control",
+        "line": 385,
+        "matched_vendor_token": "veracode",
+        "repo_full_name": "BCG-X-Official/artkit",
+        "uses_coord": "veracode/veracode-uploadandscan-action@master",
+        "workflow_path": ".github/workflows/artkit-release-pipeline.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 52,
+        "matched_vendor_token": "codeql",
+        "repo_full_name": "Camelcade/Perl5-IDEA",
+        "uses_coord": "./.github/workflows/_codeql.yml",
+        "workflow_path": ".github/workflows/push_and_pr.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 151,
+        "matched_vendor_token": "trivy",
+        "repo_full_name": "Flagsmith/flagsmith",
+        "uses_coord": "Flagsmith/actions/trivy-scan-image@v0.4.1",
+        "workflow_path": ".github/workflows/.reusable-docker-build.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 103,
+        "matched_vendor_token": "trivy",
+        "repo_full_name": "Flagsmith/flagsmith",
+        "uses_coord": "Flagsmith/actions/trivy-scan-image@v0.4.1",
+        "workflow_path": ".github/workflows/platform-docker-trivy-scan.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 111,
+        "matched_vendor_token": "gitleaks",
+        "repo_full_name": "HumanSignal/label-studio",
+        "uses_coord": "./.github/workflows/gitleaks.yml",
+        "workflow_path": ".github/workflows/cicd_pipeline.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 121,
+        "matched_vendor_token": "bandit",
+        "repo_full_name": "HumanSignal/label-studio",
+        "uses_coord": "./.github/workflows/bandit.yml",
+        "workflow_path": ".github/workflows/cicd_pipeline.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 15,
+        "matched_vendor_token": "gitleaks",
+        "repo_full_name": "HumanSignal/label-studio",
+        "uses_coord": "./.github/workflows/gitleaks.yml",
+        "workflow_path": ".github/workflows/cicd_pipeline_develop.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 22,
+        "matched_vendor_token": "bandit",
+        "repo_full_name": "HumanSignal/label-studio",
+        "uses_coord": "./.github/workflows/bandit.yml",
+        "workflow_path": ".github/workflows/cicd_pipeline_develop.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 13,
+        "matched_vendor_token": "renovate",
+        "repo_full_name": "IvanJosipovic/KubeUI",
+        "uses_coord": "IvanJosipovic/templates/.github/workflows/validate-renovate-config.yaml@main",
+        "workflow_path": ".github/workflows/validate-renovate-config.yaml"
+      },
+      {
+        "cohort": "Control",
+        "line": 12,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "JanDeDobbeleer/aliae",
+        "uses_coord": "jandedobbeleer/workflows/.github/workflows/dependabot.yml@main",
+        "workflow_path": ".github/workflows/dependabot.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 12,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "JanDeDobbeleer/oh-my-posh",
+        "uses_coord": "jandedobbeleer/workflows/.github/workflows/dependabot.yml@main",
+        "workflow_path": ".github/workflows/dependabot.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 9,
+        "matched_vendor_token": "owasp",
+        "repo_full_name": "OWASP/mastg",
+        "uses_coord": "OWASP/mas-website/.github/workflows/build-website-reusable.yml@main",
+        "workflow_path": ".github/workflows/check-website-build.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 27,
+        "matched_vendor_token": "zaproxy",
+        "repo_full_name": "OWASP/wrongsecrets",
+        "uses_coord": "zaproxy/action-baseline@v0.15.0",
+        "workflow_path": ".github/workflows/dast-zap-test.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 17,
+        "matched_vendor_token": "codeql",
+        "repo_full_name": "Open-Systems-Pharmacology/PK-Sim",
+        "uses_coord": "Open-Systems-Pharmacology/Workflows/.github/workflows/GitHub_CodeQL.yml@main",
+        "workflow_path": ".github/workflows/codeql.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 34,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "PostHog/posthog",
+        "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+        "workflow_path": ".github/workflows/build-hogql-parser-npm.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 32,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "PostHog/posthog",
+        "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+        "workflow_path": ".github/workflows/build-hogql-parser.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 93,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "PostHog/posthog",
+        "uses_coord": "step-security/changed-files@95b56dadb92a30ca9036f16423fd3c088a71ee94",
+        "workflow_path": ".github/workflows/container-images-ci.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 26,
+        "matched_vendor_token": "step-security",
+        "repo_full_name": "RocketChat/Rocket.Chat.ReactNative",
+        "uses_coord": "step-security/changed-files@3dbe17c78367e7d60f00d78ae6781a35be47b4a1",
+        "workflow_path": ".github/workflows/organize_translations.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 19,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "Sylius/Sylius",
+        "uses_coord": "ahmadnassri/action-dependabot-auto-merge@v2",
+        "workflow_path": ".github/workflows/auto-merge.yaml"
+      },
+      {
+        "cohort": "Control",
+        "line": 10,
+        "matched_vendor_token": "dependabot",
+        "repo_full_name": "akheron/typera",
+        "uses_coord": "akheron/dependabot-cron-action@main",
+        "workflow_path": ".github/workflows/automerge.yml"
+      },
+      {
+        "cohort": "AI",
+        "line": 650,
+        "matched_vendor_token": "trivy",
+        "repo_full_name": "apache/pulsar",
+        "uses_coord": "lhotari/sandboxed-trivy-action@555963036b2012b44c1071508a236e569db28ebb",
+        "workflow_path": ".github/workflows/pulsar-ci.yaml"
+      }
+    ],
+    "wide_form_rows": 4547
+  },
+  "run_id": "2026-04-26T01:14:21Z",
+  "schema_version": "1",
+  "seed": 20260101,
+  "uv": {
+    "frozen_packages": "annotated-doc==0.0.4\nanyio==4.13.0\nargon2-cffi==25.1.0\nargon2-cffi-bindings==25.1.0\narrow==1.4.0\nasttokens==3.0.1\nasync-lru==2.3.0\nattrs==26.1.0\nbabel==2.18.0\nbeautifulsoup4==4.14.3\nbleach==6.3.0\ncertifi==2026.4.22\ncffi==2.0.0\ncharset-normalizer==3.4.7\nclick==8.3.3\ncomm==0.2.3\ncontourpy==1.3.3\ncycler==0.12.1\ndebugpy==1.8.20\ndecorator==5.2.1\ndefusedxml==0.7.1\nexecuting==2.2.1\nfastjsonschema==2.21.2\nfilelock==3.29.0\nfonttools==4.62.1\nfqdn==1.5.1\nfsspec==2026.3.0\nh11==0.16.0\nhf==1.12.0\nhf-xet==1.4.3\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface-hub==1.12.0\nidna==3.13\niniconfig==2.3.0\nipykernel==7.2.0\nipython==9.13.0\nipython-pygments-lexers==1.1.1\nisoduration==20.11.0\njedi==0.19.2\njinja2==3.1.6\njoblib==1.5.3\njson5==0.14.0\njsonpointer==3.1.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\njupyter-client==8.8.0\njupyter-core==5.9.1\njupyter-events==0.12.1\njupyter-lsp==2.3.1\njupyter-server==2.17.0\njupyter-server-terminals==0.5.4\njupyterlab==4.5.6\njupyterlab-pygments==0.3.0\njupyterlab-server==2.28.0\nkiwisolver==1.5.0\nlark==1.3.1\nmarkdown-it-py==4.0.0\nmarkupsafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.2.1\nmdurl==0.1.2\nmistune==3.2.0\nnbclient==0.10.4\nnbconvert==7.17.1\nnbformat==5.10.4\nnest-asyncio==1.6.0\nnotebook-shim==0.2.4\nnumpy==2.4.4\npackaging==26.2\npandas==3.0.2\npandocfilters==1.5.1\nparso==0.8.6\npatsy==1.0.2\npexpect==4.9.0\npillow==12.2.0\nplatformdirs==4.9.6\npluggy==1.6.0\nprometheus-client==0.25.0\nprompt-toolkit==3.0.52\npsutil==7.2.2\nptyprocess==0.7.0\npure-eval==0.2.3\npyarrow==24.0.0\npycparser==3.0\npygments==2.20.0\npyparsing==3.3.2\npytest==9.0.3\npython-dateutil==2.9.0.post0\npython-dotenv==1.2.2\npython-json-logger==4.1.0\npyyaml==6.0.3\npyzmq==27.1.0\nratelimit==2.2.1\nreferencing==0.37.0\nrequests==2.33.1\nrfc3339-validator==0.1.4\nrfc3986-validator==0.1.1\nrfc3987-syntax==1.1.0\nrich==15.0.0\nrpds-py==0.30.0\nruff==0.15.12\nscikit-learn==1.8.0\nscipy==1.17.1\nseaborn==0.13.2\nsend2trash==2.1.0\nsetuptools==82.0.1\nshellingham==1.5.4\nsix==1.17.0\nsoupsieve==2.8.3\nstack-data==0.6.3\nstatsmodels==0.14.6\ntenacity==9.1.4\nterminado==0.18.1\nthreadpoolctl==3.6.0\ntinycss2==1.4.0\ntornado==6.5.5\ntqdm==4.67.3\ntraitlets==5.14.3\ntyper==0.24.2\ntyping-extensions==4.15.0\ntzdata==2026.2\nuri-template==1.3.0\nurllib3==2.6.3\nwcwidth==0.6.0\nwebcolors==25.10.0\nwebencodings==0.5.1\nwebsocket-client==1.9.0\n",
+    "lockfile_sha256": "7e873b69cbfec2805d8bbb1d99d48b8131d4b6ec4367ad10cbb62f9b08af7139",
+    "python_version": "3.12.8"
+  },
+  "window": {
+    "end": "2025-07-31",
+    "start": "2025-01-01"
+  }
+}
