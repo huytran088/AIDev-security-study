@@ -32,3 +32,6 @@ dev = [
     "pytest>=9.0.3",
     "ruff>=0.15.12",
 ]
+
+[tool.jupytext.formats]
+"analysis/notebooks/" = "ipynb,py:percent"
