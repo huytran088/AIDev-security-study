@@ -1,5 +1,5 @@
 {
-  "agent": "data-miner",
+  "agent": "intervention-classifier",
   "aidev_dataset": {
     "doi": "https://doi.org/10.5281/zenodo.16919272",
     "record_id": "16919272",
@@ -11,12 +11,12 @@
       "version_header": "version: 2026-04-25"
     },
     "security_bots.txt": {
-      "sha256": "0e7ac508784c426f9e32eadf38cda6bbb10a91d8ee5384dfb536a9b3a2916ab8",
-      "version_header": "version: 2026-04-25"
+      "sha256": "edbd29526cce9e97f40f26dc77a3111ba78f07a1534850710dc1943b89ee71e8",
+      "version_header": "version: 2026-04-26"
     },
     "security_patterns.yaml": {
-      "sha256": "2ed6668807285afac990135fbd95dd73833cde517567c1d651f43991f885a805",
-      "version_header": "version: 2026-04-25"
+      "sha256": "12c66325bfafe6bb334c57822695e033c837133bad1580c79df0ef0890ebe934",
+      "version_header": "version: 2026-04-26"
     },
     "tools.yaml": {
       "sha256": "6d2df0bc3bba611721e4638efec870d77a04700380c4f44894bc3a6f6480f02b",
@@ -65,6 +65,18 @@
       "rows": 1744,
       "sha256": "af14f96e318c812137a0513c7cc93ab635e2e3d58d33d4829302fe4768c56233"
     },
+    "human_pr_sample.parquet": {
+      "rows": 4139,
+      "sha256": "9990a837e0a6f86e1230937affba07547c99e1cdfc12c2c6cb527ab1427fcb9a"
+    },
+    "human_pr_sample_log.csv": {
+      "rows": 3354,
+      "sha256": "49eae76beaf35997a8075a629a64a2c2564eaa07be03f823beffeba3a5a1da78"
+    },
+    "pr_interventions.parquet": {
+      "rows": 37670,
+      "sha256": "5ce79efa1c44474f9162fe335e9c1eabfcd36a2c9c46971da139072d3e3abef8"
+    },
     "repo_matching_pairs.csv": {
       "rows": 1744,
       "sha256": "d7a4450794336ea7b39b7517a83a6b4b55f533e5c6a3501e96e43f77217533b7"
@@ -81,7 +93,8 @@
   "phase": [
     "A",
     "B",
-    "C"
+    "C",
+    "D"
   ],
   "phase_b": {
     "ai_meta_drops": {
@@ -499,12 +512,61 @@
     ],
     "wide_form_rows": 4547
   },
-  "run_id": "2026-04-26T01:14:21Z",
+  "phase_d": {
+    "agentic_changes_requested_rate": 0.00011929259491217083,
+    "agentic_intervention_rate": 0.024753213444275446,
+    "bot_identity_hits_total": 1294,
+    "bot_keyword_hits_total": 668,
+    "configs_used": {
+      "agent_fingerprints.yaml": "5c5a03502c2e91214bbde33ab05367beeee0ac7acf7c6a90bee5d43060941763",
+      "security_bots.txt": "edbd29526cce9e97f40f26dc77a3111ba78f07a1534850710dc1943b89ee71e8",
+      "security_patterns.yaml": "12c66325bfafe6bb334c57822695e033c837133bad1580c79df0ef0890ebe934"
+    },
+    "configs_version": {
+      "security_bots.txt_sha256": "edbd29526cce9e97f40f26dc77a3111ba78f07a1534850710dc1943b89ee71e8",
+      "security_patterns.yaml_sha256": "12c66325bfafe6bb334c57822695e033c837133bad1580c79df0ef0890ebe934"
+    },
+    "human_changes_requested_rate": 0.00024160425223483932,
+    "human_intervention_rate": 0.04807924619473303,
+    "human_pool_source": "AIDev human_pull_request.parquet (curated subset)",
+    "human_pool_source_rationale": "Used AIDev's curated human_pull_request as the human PR pool, rather than per-repo live GitHub /pulls listings, because: (a) the AIDev pool already covers 808 AI repos with both PR types, well above the \u226530-repo floor enforced by the validate-pr-interventions hook; (b) using the curated pool avoids ~140k redundant pulls.list calls and keeps the pool deterministic across reruns. Comments/reviews/inline for sampled human PRs are still fetched live (AIDev does not cover those for human PRs).",
+    "n_agentic_prs_in_scope": 33531,
+    "n_human_prs_sampled": 4139,
+    "n_repos_with_agentic_prs": 2803,
+    "n_repos_with_both_pr_types": 588,
+    "n_repos_with_human_sample": 588,
+    "pr_review_comments_table": "pr_review_comments_v2",
+    "prior_run": {
+      "agentic_intervention_rate": 0.2147266708419075,
+      "bot_identity_hits_total": 733,
+      "bot_keyword_hits_total": 14089,
+      "configs_version": {
+        "security_bots.txt_sha256": "0e7ac508784c426f9e32eadf38cda6bbb10a91d8ee5384dfb536a9b3a2916ab8",
+        "security_patterns.yaml_sha256": "2ed6668807285afac990135fbd95dd73833cde517567c1d651f43991f885a805"
+      },
+      "human_intervention_rate": 0.3452524764435854,
+      "run_id": "2026-04-26T18:07:57Z"
+    },
+    "singleton_repos_post_filter": 2215,
+    "singleton_repos_sample": [
+      "0x2E/fusion",
+      "0x4D31/finch",
+      "0x80/isolate-package",
+      "0xfurai/peekaping",
+      "1340691923/ElasticView",
+      "14790897/handwriting-web",
+      "1517005260/graph-rag-agent",
+      "1c-syntax/bsl-language-server",
+      "2006-Scape/2006Scape",
+      "3rdIteration/btcrecover"
+    ]
+  },
+  "run_id": "2026-04-26T18:57:09Z",
   "schema_version": "1",
   "seed": 20260101,
   "uv": {
-    "frozen_packages": "annotated-doc==0.0.4\nanyio==4.13.0\nargon2-cffi==25.1.0\nargon2-cffi-bindings==25.1.0\narrow==1.4.0\nasttokens==3.0.1\nasync-lru==2.3.0\nattrs==26.1.0\nbabel==2.18.0\nbeautifulsoup4==4.14.3\nbleach==6.3.0\ncertifi==2026.4.22\ncffi==2.0.0\ncharset-normalizer==3.4.7\nclick==8.3.3\ncomm==0.2.3\ncontourpy==1.3.3\ncycler==0.12.1\ndebugpy==1.8.20\ndecorator==5.2.1\ndefusedxml==0.7.1\nexecuting==2.2.1\nfastjsonschema==2.21.2\nfilelock==3.29.0\nfonttools==4.62.1\nfqdn==1.5.1\nfsspec==2026.3.0\nh11==0.16.0\nhf==1.12.0\nhf-xet==1.4.3\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface-hub==1.12.0\nidna==3.13\niniconfig==2.3.0\nipykernel==7.2.0\nipython==9.13.0\nipython-pygments-lexers==1.1.1\nisoduration==20.11.0\njedi==0.19.2\njinja2==3.1.6\njoblib==1.5.3\njson5==0.14.0\njsonpointer==3.1.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\njupyter-client==8.8.0\njupyter-core==5.9.1\njupyter-events==0.12.1\njupyter-lsp==2.3.1\njupyter-server==2.17.0\njupyter-server-terminals==0.5.4\njupyterlab==4.5.6\njupyterlab-pygments==0.3.0\njupyterlab-server==2.28.0\nkiwisolver==1.5.0\nlark==1.3.1\nmarkdown-it-py==4.0.0\nmarkupsafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.2.1\nmdurl==0.1.2\nmistune==3.2.0\nnbclient==0.10.4\nnbconvert==7.17.1\nnbformat==5.10.4\nnest-asyncio==1.6.0\nnotebook-shim==0.2.4\nnumpy==2.4.4\npackaging==26.2\npandas==3.0.2\npandocfilters==1.5.1\nparso==0.8.6\npatsy==1.0.2\npexpect==4.9.0\npillow==12.2.0\nplatformdirs==4.9.6\npluggy==1.6.0\nprometheus-client==0.25.0\nprompt-toolkit==3.0.52\npsutil==7.2.2\nptyprocess==0.7.0\npure-eval==0.2.3\npyarrow==24.0.0\npycparser==3.0\npygments==2.20.0\npyparsing==3.3.2\npytest==9.0.3\npython-dateutil==2.9.0.post0\npython-dotenv==1.2.2\npython-json-logger==4.1.0\npyyaml==6.0.3\npyzmq==27.1.0\nratelimit==2.2.1\nreferencing==0.37.0\nrequests==2.33.1\nrfc3339-validator==0.1.4\nrfc3986-validator==0.1.1\nrfc3987-syntax==1.1.0\nrich==15.0.0\nrpds-py==0.30.0\nruff==0.15.12\nscikit-learn==1.8.0\nscipy==1.17.1\nseaborn==0.13.2\nsend2trash==2.1.0\nsetuptools==82.0.1\nshellingham==1.5.4\nsix==1.17.0\nsoupsieve==2.8.3\nstack-data==0.6.3\nstatsmodels==0.14.6\ntenacity==9.1.4\nterminado==0.18.1\nthreadpoolctl==3.6.0\ntinycss2==1.4.0\ntornado==6.5.5\ntqdm==4.67.3\ntraitlets==5.14.3\ntyper==0.24.2\ntyping-extensions==4.15.0\ntzdata==2026.2\nuri-template==1.3.0\nurllib3==2.6.3\nwcwidth==0.6.0\nwebcolors==25.10.0\nwebencodings==0.5.1\nwebsocket-client==1.9.0\n",
-    "lockfile_sha256": "7e873b69cbfec2805d8bbb1d99d48b8131d4b6ec4367ad10cbb62f9b08af7139",
+    "frozen_packages": "annotated-doc==0.0.4\nanyio==4.13.0\nargon2-cffi==25.1.0\nargon2-cffi-bindings==25.1.0\narrow==1.4.0\nasttokens==3.0.1\nasync-lru==2.3.0\nattrs==26.1.0\nbabel==2.18.0\nbeautifulsoup4==4.14.3\nbleach==6.3.0\ncertifi==2026.4.22\ncffi==2.0.0\ncharset-normalizer==3.4.7\nclick==8.3.3\ncomm==0.2.3\ncontourpy==1.3.3\ncycler==0.12.1\ndebugpy==1.8.20\ndecorator==5.2.1\ndefusedxml==0.7.1\nexecuting==2.2.1\nfastjsonschema==2.21.2\nfilelock==3.29.0\nfonttools==4.62.1\nfqdn==1.5.1\nfsspec==2026.3.0\nh11==0.16.0\nhf==1.12.0\nhf-xet==1.4.3\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface-hub==1.12.0\nidna==3.13\niniconfig==2.3.0\nipykernel==7.2.0\nipython==9.13.0\nipython-pygments-lexers==1.1.1\nisoduration==20.11.0\njedi==0.19.2\njinja2==3.1.6\njoblib==1.5.3\njson5==0.14.0\njsonpointer==3.1.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\njupyter-client==8.8.0\njupyter-core==5.9.1\njupyter-events==0.12.1\njupyter-lsp==2.3.1\njupyter-server==2.17.0\njupyter-server-terminals==0.5.4\njupyterlab==4.5.6\njupyterlab-pygments==0.3.0\njupyterlab-server==2.28.0\njupytext==1.19.1\nkiwisolver==1.5.0\nlark==1.3.1\nmarkdown-it-py==4.0.0\nmarkupsafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.2.1\nmdit-py-plugins==0.5.0\nmdurl==0.1.2\nmistune==3.2.0\nnbclient==0.10.4\nnbconvert==7.17.1\nnbformat==5.10.4\nnest-asyncio==1.6.0\nnotebook-shim==0.2.4\nnumpy==2.4.4\npackaging==26.2\npandas==3.0.2\npandocfilters==1.5.1\nparso==0.8.6\npatsy==1.0.2\npexpect==4.9.0\npillow==12.2.0\nplatformdirs==4.9.6\npluggy==1.6.0\nprometheus-client==0.25.0\nprompt-toolkit==3.0.52\npsutil==7.2.2\nptyprocess==0.7.0\npure-eval==0.2.3\npyarrow==24.0.0\npycparser==3.0\npygments==2.20.0\npyparsing==3.3.2\npytest==9.0.3\npython-dateutil==2.9.0.post0\npython-dotenv==1.2.2\npython-json-logger==4.1.0\npyyaml==6.0.3\npyzmq==27.1.0\nratelimit==2.2.1\nreferencing==0.37.0\nrequests==2.33.1\nrfc3339-validator==0.1.4\nrfc3986-validator==0.1.1\nrfc3987-syntax==1.1.0\nrich==15.0.0\nrpds-py==0.30.0\nruff==0.15.12\nscikit-learn==1.8.0\nscipy==1.17.1\nseaborn==0.13.2\nsend2trash==2.1.0\nsetuptools==82.0.1\nshellingham==1.5.4\nsix==1.17.0\nsoupsieve==2.8.3\nstack-data==0.6.3\nstatsmodels==0.14.6\ntenacity==9.1.4\nterminado==0.18.1\nthreadpoolctl==3.6.0\ntinycss2==1.4.0\ntornado==6.5.5\ntqdm==4.67.3\ntraitlets==5.14.3\ntyper==0.24.2\ntyping-extensions==4.15.0\ntzdata==2026.2\nuri-template==1.3.0\nurllib3==2.6.3\nwcwidth==0.6.0\nwebcolors==25.10.0\nwebencodings==0.5.1\nwebsocket-client==1.9.0\n",
+    "lockfile_sha256": "7288071d8decbff148f395c95e300247b3bef8d46de5ef808242db581b822321",
     "python_version": "3.12.8"
   },
   "window": {
