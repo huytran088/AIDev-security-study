@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit — orchestrate the pre-commit chain.
+# Strict checks exit non-zero (block commit). Advisory checks print warnings.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+# Only run if the commit touches analysis outputs. Saves time on commits
+# that only change scripts or docs.
+STAGED=$(git diff --cached --name-only)
+TOUCHES_ANALYSIS=false
+echo "$STAGED" | grep -qE '^analysis/(REPORT\.md|tables/.*_main\.csv|figures/)' && TOUCHES_ANALYSIS=true
+
+if ! $TOUCHES_ANALYSIS; then
+  exit 0
+fi
+
+# Strict: REPORT.md and *_main.csv must be consistent with current data_derived/latest.
+.githooks/checks/check-analysis-consistent.sh || {
+  echo "" >&2
+  echo "Pre-commit BLOCKED: analysis outputs are inconsistent with data_derived/latest." >&2
+  echo "  Re-run Phase E:  uv run python analysis/scripts/build_all.sh" >&2
+  echo "  Or skip (you'd better know why):  git commit --no-verify" >&2
+  exit 1
+}
+
+# Advisory: figures
+.githooks/checks/check-figures-fresh.sh || true
+
+exit 0
