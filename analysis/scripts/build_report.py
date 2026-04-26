@@ -207,8 +207,10 @@ def main() -> None:
     env.filters["round_sci"] = round_sci
 
     template = env.get_template("REPORT.md.j2")
+    run_dir = MANIFEST_PATH.resolve().parent.name
     out = template.render(
         manifest=manifest,
+        run_dir=run_dir,
         rq1_prov=rq1_prov,
         rq1=rq1,
         rq2=rq2,

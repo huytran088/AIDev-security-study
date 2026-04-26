@@ -1,3 +1,5 @@
+_run_id: 2026-04-25
+
 # AIDev Security Study — REPORT
 
 > Generated from `analysis/report/REPORT.md.j2` against
