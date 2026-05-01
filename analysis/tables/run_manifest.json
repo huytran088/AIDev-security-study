@@ -1,0 +1,270 @@
+{
+  "agent": "analyst",
+  "aidev_dataset": {
+    "doi": "https://doi.org/10.5281/zenodo.16919272",
+    "hf_commit": "8b421265850aec28c28a81226534e574584c5a7f",
+    "record_id": "16919272",
+    "version_commit": "v3"
+  },
+  "configs": {
+    "agent_fingerprints.yaml": {
+      "sha256": "5c5a03502c2e91214bbde33ab05367beeee0ac7acf7c6a90bee5d43060941763",
+      "version_header": "version: 2026-04-25"
+    },
+    "security_bots.txt": {
+      "sha256": "edbd29526cce9e97f40f26dc77a3111ba78f07a1534850710dc1943b89ee71e8",
+      "version_header": "version: 2026-04-26"
+    },
+    "security_patterns.yaml": {
+      "sha256": "12c66325bfafe6bb334c57822695e033c837133bad1580c79df0ef0890ebe934",
+      "version_header": "version: 2026-04-26"
+    },
+    "tools.yaml": {
+      "sha256": "6d2df0bc3bba611721e4638efec870d77a04700380c4f44894bc3a6f6480f02b",
+      "version_header": "version: 2026-04-25"
+    }
+  },
+  "phase": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "phase_e": {
+    "agent": "analyst",
+    "bh_correction_groupings": {
+      "RQ2_primary": {
+        "alpha": 0.05,
+        "category_family_size": 5,
+        "description": "BH (fdr_bh) correction within RQ2 category family AND within the non-sparse subset of the tool family. Sparse-band tools (control adoption rate < 1%) are excluded from BH because their Fisher p-values are dominated by zero-cell continuity.",
+        "method": "fdr_bh",
+        "sparse_band_excluded": [
+          "anchore",
+          "bandit",
+          "checkov",
+          "claude_code_security_review",
+          "gitleaks",
+          "govulncheck",
+          "harden_runner",
+          "microsoft_security_devops",
+          "oss_fuzz",
+          "semgrep",
+          "snyk",
+          "sonarqube",
+          "tfsec",
+          "trivy",
+          "trufflehog"
+        ],
+        "sparse_band_threshold": 0.01,
+        "tool_family_size_after_sparse_exclusion": 4
+      },
+      "RQ3_primary": {
+        "description": "No multi-test BH adjustment applied across the three RQ3 outcomes; each outcome (any_intervention, intervention_count, rejected) is reported with its raw p from the FE model.",
+        "method": "none"
+      }
+    },
+    "compute_scripts": [
+      "analysis/scripts/rq1_compute.py",
+      "analysis/scripts/rq2_compute.py",
+      "analysis/scripts/rq3_compute.py",
+      "analysis/scripts/robustness.py",
+      "analysis/scripts/power_analysis_pre.py",
+      "analysis/scripts/power_analysis_post.py"
+    ],
+    "file_hashes": {
+      "analysis/figures": {
+        "rq1_adoption_by_category.pdf": {
+          "bytes": 14620,
+          "sha256": "1344f8098432b8e2720fe8f0c5f96ae2eb74ad5bc1fc094f9361a0a079258345"
+        },
+        "rq1_adoption_by_category.png": {
+          "bytes": 76093,
+          "sha256": "0cc6b303eba8d91f9b1be76e95e456a126ca883b1a795cc9f3a4224b5895e803"
+        },
+        "rq1_adoption_by_language.pdf": {
+          "bytes": 19078,
+          "sha256": "d246424fbf78b6a67cbdd725a19925894c83c18f41a2e2caa81013f0cd53a50b"
+        },
+        "rq1_adoption_by_language.png": {
+          "bytes": 146404,
+          "sha256": "bf49c12b378f29447939048bbd5994c21ea432fa61215aa131eb9cd6873e41cb"
+        },
+        "rq1_adoption_by_tool.pdf": {
+          "bytes": 17266,
+          "sha256": "b2d5a6805a8c6abce8130e1306d51434ef49e432e24e7c811f3bf8098eb3b7e0"
+        },
+        "rq1_adoption_by_tool.png": {
+          "bytes": 182042,
+          "sha256": "7bf22e819ecf183d05273c7cf0de31e25fc472669a89bf1cd91e95f697d0de19"
+        },
+        "rq2_category_rates.pdf": {
+          "bytes": 14850,
+          "sha256": "e66cfae9f49c76b018c50714a3e6887489d5fea65b150af065243d7ad61dae69"
+        },
+        "rq2_category_rates.png": {
+          "bytes": 83355,
+          "sha256": "8a6190132570727762d682d043a495a3d88c6509fb047b82659ae44b8d5d5140"
+        },
+        "rq2_tool_forest.pdf": {
+          "bytes": 22694,
+          "sha256": "bc4e7d4b9a83ffd38f4c0bf2be8b4fc57d0eb10bb83f1afb6383009128ae1efc"
+        },
+        "rq2_tool_forest.png": {
+          "bytes": 225097,
+          "sha256": "b87c2bcd5a87a95d43b4c3fec38cedaaf070fc0c8c0b20f266ff7ef21e58a969"
+        },
+        "rq3_outcomes_forest.pdf": {
+          "bytes": 15636,
+          "sha256": "661a343245e6e0e1de718a779ba4bb677200ddf0cf40fd57ab8ea3d8d631dba3"
+        },
+        "rq3_outcomes_forest.png": {
+          "bytes": 107670,
+          "sha256": "2393dcd05b473f0ac5bbd88b732e8376a6914291338c26185d33bccc85c10259"
+        },
+        "rq3_per_repo_rates.pdf": {
+          "bytes": 16501,
+          "sha256": "dc4824328c39f5df504f494e1c038a958a4181dd8e20378163bde0b74f85bb18"
+        },
+        "rq3_per_repo_rates.png": {
+          "bytes": 161812,
+          "sha256": "9a2a178ca6652c6c22cb988ae00846367530af9680f03098a56b484985f78205"
+        }
+      },
+      "analysis/tables": {
+        "power_analysis.csv": {
+          "bytes": 13769,
+          "sha256": "e7c168d029904f1244d3c59bb36e80da01629404e2d41af4f16b68c7e48dd903"
+        },
+        "rq1_adoption_by_category.csv": {
+          "bytes": 216,
+          "sha256": "20f7c280526794350e8743f74df7d69745ed8e3dc2f7594e638ef68a7f0539d3"
+        },
+        "rq1_adoption_by_language.csv": {
+          "bytes": 545,
+          "sha256": "82ce7258a407f6f29e2432a0f8d0c665568d99858556bdb10f9fddc12ca43894"
+        },
+        "rq1_adoption_by_stars.csv": {
+          "bytes": 292,
+          "sha256": "86a92f7f5610f63516258ca2b46ff34c63ec304c339379eb8163d1fe78f6de71"
+        },
+        "rq1_adoption_by_tool.csv": {
+          "bytes": 701,
+          "sha256": "75609625df2ca704e51cfe21b0c137bd89e7353c5dbbdf490b059875e4015613"
+        },
+        "rq1_headline.json": {
+          "bytes": 808,
+          "sha256": "52e81b76b425b1f68c4049c1d96455135acab39c38122e04ff628a6116623bbe"
+        },
+        "rq1_logit_terms.csv": {
+          "bytes": 12058,
+          "sha256": "5211fd28fdb66b692843b9b40389e78740693955cebd6c38ea8043f53fadca79"
+        },
+        "rq1_main.csv": {
+          "bytes": 1205,
+          "sha256": "229067c969f6ae55b16f82cd379e5d698ad4fb54d6b0767f913bda8c0176c7cf"
+        },
+        "rq1_provenance.json": {
+          "bytes": 849,
+          "sha256": "61e87dc8f62148fdd61ab5dc450a52d01cbf743a6a75faef102143cd992acefd"
+        },
+        "rq2_category_rates.csv": {
+          "bytes": 359,
+          "sha256": "4d68f3fbb145bbf02ba67d9e23050ab22c9c09fb8fa1a251dfe4a0fdf6b88479"
+        },
+        "rq2_headline.json": {
+          "bytes": 1543,
+          "sha256": "9dc213b9ba61c90ada7cce91613abaf0d0cde3aa0caf35f78950f2bd0667e0ad"
+        },
+        "rq2_main.csv": {
+          "bytes": 3533,
+          "sha256": "bb0da6ea6e8788beedda07f1258fc4f21c2b4a4fb092b08d84722ae808068510"
+        },
+        "rq2_provenance.json": {
+          "bytes": 1487,
+          "sha256": "29c22a0ad66236c95802254501e0e3e5b5002d9158893aa3012b524788751938"
+        },
+        "rq2_robustness.csv": {
+          "bytes": 6413,
+          "sha256": "19b9a25134c50d7be9f3b3255ae408e975dbb5eeefe72656797cb4703c2fc799"
+        },
+        "rq2_tool_forest.csv": {
+          "bytes": 1515,
+          "sha256": "883c04df6e24a1b87bd01aaf442b05ca157c0f5c861b122d044bf997e1bb47c5"
+        },
+        "rq3_headline.json": {
+          "bytes": 1165,
+          "sha256": "5e521f0723e8ed6f7886ad28ab775357f2a95814fb5c0d5c64e6d49222ea3468"
+        },
+        "rq3_main.csv": {
+          "bytes": 890,
+          "sha256": "5eb56f2789c6c48e85750f6be94dd0c4296fbf674449739785bea6affdc444df"
+        },
+        "rq3_outcomes_forest.csv": {
+          "bytes": 890,
+          "sha256": "5eb56f2789c6c48e85750f6be94dd0c4296fbf674449739785bea6affdc444df"
+        },
+        "rq3_per_repo_rates.csv": {
+          "bytes": 20920,
+          "sha256": "5fb042b4b9010467a2883925cb0f1bdc503d898a0150d96b3dd7e24e3defc3dd"
+        },
+        "rq3_provenance.json": {
+          "bytes": 1742,
+          "sha256": "608abc87dac6c0a6ef38e105e044a554eb9c84d0ce69fbdb6a3a503cbc0eef55"
+        },
+        "rq3_robustness.csv": {
+          "bytes": 5387,
+          "sha256": "f6c7b818357476921a8c10b9b94d78c32f580e05fa8906ece86ca0cc308c8df4"
+        }
+      }
+    },
+    "generated_at_utc": "2026-05-01T17:27:08Z",
+    "parent_manifest_path": "data_derived/latest/run_manifest.json",
+    "parent_manifest_sha256": "c19602d1d3f0bbdba549c32e6d12e7caad3a69c148b68796ed5235c65d7f43e5",
+    "robustness_variants": {
+      "RQ2": [
+        "v1_strict_relaxed_fingerprints",
+        "v4_lang_strat"
+      ],
+      "RQ3": [
+        "v2_drop_dep_update_prs",
+        "v3_time_aligned",
+        "v4_lang_strat",
+        "v5_bot_identity_only"
+      ]
+    },
+    "stats_libs_note": "Library versions are inherited from the parent Phase A-D manifest's `uv.frozen_packages` block. Key entries: statsmodels, scipy, pandas, numpy, patsy.",
+    "test_families": {
+      "RQ1": [
+        "per_tool_adoption_rate",
+        "per_category_adoption_rate",
+        "cross_tab_by_language",
+        "cross_tab_by_stars_bin",
+        "logit_tool_configured_on_ai_covariates"
+      ],
+      "RQ2": [
+        "fisher_exact_per_tool",
+        "fisher_exact_per_category",
+        "logit_configured_on_AI_plus_covariates_cluster_SE"
+      ],
+      "RQ3": [
+        "logit_FE_any_security_intervention",
+        "negbin_FE_security_intervention_count",
+        "poisson_quasi_FE_fallback_when_NB_diverges",
+        "logit_FE_rejected_with_any_intervention_covariate"
+      ]
+    }
+  },
+  "run_id": "2026-04-26T18:57:09Z",
+  "schema_version": "1",
+  "seed": 20260101,
+  "uv": {
+    "frozen_packages": "annotated-doc==0.0.4\nanyio==4.13.0\nargon2-cffi==25.1.0\nargon2-cffi-bindings==25.1.0\narrow==1.4.0\nasttokens==3.0.1\nasync-lru==2.3.0\nattrs==26.1.0\nbabel==2.18.0\nbeautifulsoup4==4.14.3\nbleach==6.3.0\ncertifi==2026.4.22\ncffi==2.0.0\ncharset-normalizer==3.4.7\nclick==8.3.3\ncomm==0.2.3\ncontourpy==1.3.3\ncycler==0.12.1\ndebugpy==1.8.20\ndecorator==5.2.1\ndefusedxml==0.7.1\nexecuting==2.2.1\nfastjsonschema==2.21.2\nfilelock==3.29.0\nfonttools==4.62.1\nfqdn==1.5.1\nfsspec==2026.3.0\nh11==0.16.0\nhf==1.12.0\nhf-xet==1.4.3\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface-hub==1.12.0\nidna==3.13\niniconfig==2.3.0\nipykernel==7.2.0\nipython==9.13.0\nipython-pygments-lexers==1.1.1\nisoduration==20.11.0\njedi==0.19.2\njinja2==3.1.6\njoblib==1.5.3\njson5==0.14.0\njsonpointer==3.1.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\njupyter-client==8.8.0\njupyter-core==5.9.1\njupyter-events==0.12.1\njupyter-lsp==2.3.1\njupyter-server==2.17.0\njupyter-server-terminals==0.5.4\njupyterlab==4.5.6\njupyterlab-pygments==0.3.0\njupyterlab-server==2.28.0\njupytext==1.19.1\nkiwisolver==1.5.0\nlark==1.3.1\nmarkdown-it-py==4.0.0\nmarkupsafe==3.0.3\nmatplotlib==3.10.9\nmatplotlib-inline==0.2.1\nmdit-py-plugins==0.5.0\nmdurl==0.1.2\nmistune==3.2.0\nnbclient==0.10.4\nnbconvert==7.17.1\nnbformat==5.10.4\nnest-asyncio==1.6.0\nnotebook-shim==0.2.4\nnumpy==2.4.4\npackaging==26.2\npandas==3.0.2\npandocfilters==1.5.1\nparso==0.8.6\npatsy==1.0.2\npexpect==4.9.0\npillow==12.2.0\nplatformdirs==4.9.6\npluggy==1.6.0\nprometheus-client==0.25.0\nprompt-toolkit==3.0.52\npsutil==7.2.2\nptyprocess==0.7.0\npure-eval==0.2.3\npyarrow==24.0.0\npycparser==3.0\npygments==2.20.0\npyparsing==3.3.2\npytest==9.0.3\npython-dateutil==2.9.0.post0\npython-dotenv==1.2.2\npython-json-logger==4.1.0\npyyaml==6.0.3\npyzmq==27.1.0\nratelimit==2.2.1\nreferencing==0.37.0\nrequests==2.33.1\nrfc3339-validator==0.1.4\nrfc3986-validator==0.1.1\nrfc3987-syntax==1.1.0\nrich==15.0.0\nrpds-py==0.30.0\nruff==0.15.12\nscikit-learn==1.8.0\nscipy==1.17.1\nseaborn==0.13.2\nsend2trash==2.1.0\nsetuptools==82.0.1\nshellingham==1.5.4\nsix==1.17.0\nsoupsieve==2.8.3\nstack-data==0.6.3\nstatsmodels==0.14.6\ntenacity==9.1.4\nterminado==0.18.1\nthreadpoolctl==3.6.0\ntinycss2==1.4.0\ntornado==6.5.5\ntqdm==4.67.3\ntraitlets==5.14.3\ntyper==0.24.2\ntyping-extensions==4.15.0\ntzdata==2026.2\nuri-template==1.3.0\nurllib3==2.6.3\nwcwidth==0.6.0\nwebcolors==25.10.0\nwebencodings==0.5.1\nwebsocket-client==1.9.0\n",
+    "lockfile_sha256": "7288071d8decbff148f395c95e300247b3bef8d46de5ef808242db581b822321",
+    "python_version": "3.12.8"
+  },
+  "window": {
+    "end": "2025-07-31",
+    "start": "2025-01-01"
+  }
+}

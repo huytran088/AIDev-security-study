@@ -11,17 +11,28 @@ Differences from the skill sketch:
   on line 1 of each config; for plain `.txt` files we still use line 1
   (which is itself a `# date` comment per the security_bots.txt header
   convention) and tolerate non-comment headers.
+- `aidev_dataset.hf_commit` is populated from `logs/aidev_dataset_version.txt`
+  (40-char hex from the Hugging Face dataset commit), separately from the
+  human-readable `version_commit` tag (e.g. "v3"). If the log file is
+  missing or malformed we set `hf_commit: null` and warn rather than
+  failing — the writer must remain robust for future runs.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+_HF_COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
 def sha256_of(p: Path) -> str:
@@ -49,6 +60,31 @@ def _aidev_version(repo: Path) -> str:
         except subprocess.CalledProcessError:
             pass
     return os.environ.get("AIDEV_DATASET_VERSION", "")
+
+
+def _aidev_hf_commit(repo: Path) -> str | None:
+    """Return the Hugging Face dataset commit SHA from `logs/aidev_dataset_version.txt`.
+
+    The log is expected to contain a single 40-char hex sha (optionally
+    surrounded by whitespace). Returns None if the file is missing,
+    unreadable, or malformed — never raises, so the manifest writer keeps
+    working even when the log hasn't been refreshed.
+    """
+    log_path = repo / "logs" / "aidev_dataset_version.txt"
+    try:
+        text = log_path.read_text()
+    except FileNotFoundError:
+        logger.warning("aidev_dataset_version.txt not found at %s", log_path)
+        return None
+    except OSError as e:
+        logger.warning("could not read %s: %s", log_path, e)
+        return None
+    for line in text.splitlines():
+        token = line.strip()
+        if _HF_COMMIT_RE.match(token):
+            return token
+    logger.warning("no 40-char hex commit found in %s (got %r)", log_path, text[:120])
+    return None
 
 
 def _config_entries(repo: Path) -> dict[str, dict[str, str]]:
@@ -97,6 +133,7 @@ def write_manifest(
         "seed": int(os.environ["RANDOM_SEED"]),
         "aidev_dataset": {
             "version_commit": _aidev_version(repo),
+            "hf_commit": _aidev_hf_commit(repo),
             "doi": os.environ.get("AIDEV_DATASET_DOI", ""),
             "record_id": os.environ.get("AIDEV_DATASET_RECORD_ID", ""),
         },

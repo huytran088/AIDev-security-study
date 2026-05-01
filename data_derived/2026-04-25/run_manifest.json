@@ -2,6 +2,7 @@
   "agent": "intervention-classifier",
   "aidev_dataset": {
     "doi": "https://doi.org/10.5281/zenodo.16919272",
+    "hf_commit": "8b421265850aec28c28a81226534e574584c5a7f",
     "record_id": "16919272",
     "version_commit": "v3"
   },
