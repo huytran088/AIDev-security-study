@@ -67,7 +67,6 @@ def prep_fe_frame(
     n_repos_dropped = n_repos_before - df["repo_full_name"].nunique()
     n_rows_dropped = n_rows_before - len(df)
 
-    # Encode binaries / log-churn / time index
     df["agentic"] = (df["pr_type"] == "agentic").astype(int)
     # smf.logit barfs on bool endog; cast outcome columns to int.
     for col in ("any_security_intervention", "rejected"):
@@ -225,7 +224,6 @@ def fit_count_fe(df: pd.DataFrame, outcome: str) -> dict:
     try:
         m_nb = sm.NegativeBinomial(y, X).fit(method="newton", maxiter=300, disp=False)
         nb_converged = bool(m_nb.mle_retvals.get("converged", False))
-        # statsmodels NB writes alpha in params under name 'alpha'
         nb_alpha = float(m_nb.params["alpha"]) if "alpha" in m_nb.params.index else None
         nb_loglike = float(m_nb.llf)
         # Verify the CI is finite — sometimes NB converges with degenerate hessian.
@@ -237,14 +235,9 @@ def fit_count_fe(df: pd.DataFrame, outcome: str) -> dict:
             and np.isfinite(ci[1])
         ):
             nb_ok = True
-    except Exception as e:  # noqa: BLE001
+    except Exception:  # noqa: BLE001
         m_nb = None
-        nb_error = str(e)[:200]
         nb_converged = False
-        nb_loglike = None
-        # nb_alpha already None
-        # we'll fall through to Poisson fallback
-        nb_error_first = nb_error  # noqa: F841
 
     if nb_ok and m_nb is not None:
         coef = float(m_nb.params["agentic"])
@@ -504,31 +497,17 @@ def write_headline(main_df: pd.DataFrame, secondary: dict, diag: dict) -> dict:
         headline[outc] = {
             "model": r["model"],
             "or_or_irr": (
-                round(float(r["or_or_irr"]), 4)
-                if r["or_or_irr"] is not None and not pd.isna(r["or_or_irr"])
-                else None
+                round(float(r["or_or_irr"]), 4) if pd.notna(r["or_or_irr"]) else None
             ),
             "ci95_lo": (
-                round(float(r["ci95_lo"]), 4)
-                if r["ci95_lo"] is not None and not pd.isna(r["ci95_lo"])
-                else None
+                round(float(r["ci95_lo"]), 4) if pd.notna(r["ci95_lo"]) else None
             ),
             "ci95_hi": (
-                round(float(r["ci95_hi"]), 4)
-                if r["ci95_hi"] is not None and not pd.isna(r["ci95_hi"])
-                else None
+                round(float(r["ci95_hi"]), 4) if pd.notna(r["ci95_hi"]) else None
             ),
-            "p_raw": (
-                float(r["p_raw"])
-                if r["p_raw"] is not None and not pd.isna(r["p_raw"])
-                else None
-            ),
+            "p_raw": float(r["p_raw"]) if pd.notna(r["p_raw"]) else None,
             "converged": bool(r["converged"]),
-            "alpha": (
-                float(r["alpha"])
-                if r["alpha"] is not None and not pd.isna(r["alpha"])
-                else None
-            ),
+            "alpha": float(r["alpha"]) if pd.notna(r["alpha"]) else None,
             "fallback_to_poisson": bool(r["fallback_to_poisson"]),
         }
     headline["secondary"] = secondary
@@ -550,7 +529,7 @@ def main() -> None:
 
     secondary = secondary_tests(df_fe)
     make_figures(df_fe, main_df)
-    headline = write_headline(main_df, secondary, diag)
+    write_headline(main_df, secondary, diag)
 
     extra = {
         "fe_diagnostics": diag,

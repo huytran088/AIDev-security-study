@@ -17,7 +17,6 @@ model and does not touch `*_main.csv`, `*_provenance.json`, or
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 
 import pandas as pd
@@ -92,8 +91,7 @@ def emit_rq3_per_repo_rates() -> Path:
     `data_derived/latest/` will produce byte-identical output."""
     df = pd.read_parquet(LATEST / "pr_interventions.parquet")
 
-    # Singleton drop: keep only repos with both agentic AND human PRs.
-    # This mirrors `prep_fe_frame` in rq3_compute.py exactly.
+    # Mirrors `prep_fe_frame` in rq3_compute.py exactly — singleton-repo drop.
     keep = df.groupby("repo_full_name")["pr_type"].nunique().loc[lambda s: s == 2].index
     df_fe = df[df["repo_full_name"].isin(keep)].copy()
     df_fe["any_security_intervention"] = df_fe["any_security_intervention"].astype(int)
@@ -157,14 +155,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # Auto-load .env so WINDOW_*, RANDOM_SEED etc. are visible if a
-    # downstream import touches them. Not strictly needed by this script
-    # but harmless and keeps the convention uniform.
-    try:
-        from dotenv import load_dotenv
-
-        load_dotenv(REPO / ".env")
-    except ImportError:
-        pass
-    _ = os  # keep import for potential future env reads
     main()

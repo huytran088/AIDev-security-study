@@ -22,7 +22,6 @@ Outputs:
 
 from __future__ import annotations
 
-import json
 import os
 import warnings
 from pathlib import Path
@@ -486,12 +485,7 @@ def compose_rq3_table() -> pd.DataFrame:
         if outc not in primary.index:
             return None
         p = primary.loc[outc]
-        if (
-            row.get("or_or_irr") is None
-            or pd.isna(row.get("or_or_irr"))
-            or p["or_or_irr"] is None
-            or pd.isna(p["or_or_irr"])
-        ):
+        if not (pd.notna(row.get("or_or_irr")) and pd.notna(p["or_or_irr"])):
             return None
         return float(np.log(row["or_or_irr"]) - np.log(p["or_or_irr"]))
 
@@ -513,12 +507,7 @@ def compose_rq2_table() -> pd.DataFrame:
         if cat not in primary.index:
             return None
         p = primary.loc[cat]
-        if (
-            row.get("or_or_irr") is None
-            or pd.isna(row.get("or_or_irr"))
-            or p["or_or_irr"] is None
-            or pd.isna(p["or_or_irr"])
-        ):
+        if not (pd.notna(row.get("or_or_irr")) and pd.notna(p["or_or_irr"])):
             return None
         return float(np.log(row["or_or_irr"]) - np.log(p["or_or_irr"]))
 

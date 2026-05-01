@@ -76,7 +76,7 @@
       "analysis/figures": {
         "rq1_adoption_by_category.pdf": {
           "bytes": 14620,
-          "sha256": "1344f8098432b8e2720fe8f0c5f96ae2eb74ad5bc1fc094f9361a0a079258345"
+          "sha256": "93eea2f0bb625fd2fa06fa46f8825a61f7e3af370313aec60fdbd3ffb919789c"
         },
         "rq1_adoption_by_category.png": {
           "bytes": 76093,
@@ -84,7 +84,7 @@
         },
         "rq1_adoption_by_language.pdf": {
           "bytes": 19078,
-          "sha256": "d246424fbf78b6a67cbdd725a19925894c83c18f41a2e2caa81013f0cd53a50b"
+          "sha256": "28c526c1efd4f4cf1eb76a67b1507a4b3d2aa0497a4694638e1b5d293882d866"
         },
         "rq1_adoption_by_language.png": {
           "bytes": 146404,
@@ -92,7 +92,7 @@
         },
         "rq1_adoption_by_tool.pdf": {
           "bytes": 17266,
-          "sha256": "b2d5a6805a8c6abce8130e1306d51434ef49e432e24e7c811f3bf8098eb3b7e0"
+          "sha256": "cfe69de0c9a87360317c7bce94a2dca1cf852db3632ec9132a3bc9d49fba19e4"
         },
         "rq1_adoption_by_tool.png": {
           "bytes": 182042,
@@ -100,7 +100,7 @@
         },
         "rq2_category_rates.pdf": {
           "bytes": 14850,
-          "sha256": "e66cfae9f49c76b018c50714a3e6887489d5fea65b150af065243d7ad61dae69"
+          "sha256": "2b3cd925472934128ed0485583cdf02399e9bd91c0942abb76153b0e9366d8cc"
         },
         "rq2_category_rates.png": {
           "bytes": 83355,
@@ -108,7 +108,7 @@
         },
         "rq2_tool_forest.pdf": {
           "bytes": 22694,
-          "sha256": "bc4e7d4b9a83ffd38f4c0bf2be8b4fc57d0eb10bb83f1afb6383009128ae1efc"
+          "sha256": "ba53073120d72f1fe34b53b356abb38dbc8ae75f493ffc690484d05934a0d6a3"
         },
         "rq2_tool_forest.png": {
           "bytes": 225097,
@@ -116,7 +116,7 @@
         },
         "rq3_outcomes_forest.pdf": {
           "bytes": 15636,
-          "sha256": "661a343245e6e0e1de718a779ba4bb677200ddf0cf40fd57ab8ea3d8d631dba3"
+          "sha256": "b21e19812437b3c0b46139d2baf6a28e33949546e5dc7275c7aaf13c1341885d"
         },
         "rq3_outcomes_forest.png": {
           "bytes": 107670,
@@ -124,7 +124,7 @@
         },
         "rq3_per_repo_rates.pdf": {
           "bytes": 16501,
-          "sha256": "dc4824328c39f5df504f494e1c038a958a4181dd8e20378163bde0b74f85bb18"
+          "sha256": "44ede7e06621d8d63dba5cca50710cfddcdc45a6a52f086478f4b77c3af183b8"
         },
         "rq3_per_repo_rates.png": {
           "bytes": 161812,
@@ -166,7 +166,7 @@
         },
         "rq1_provenance.json": {
           "bytes": 849,
-          "sha256": "61e87dc8f62148fdd61ab5dc450a52d01cbf743a6a75faef102143cd992acefd"
+          "sha256": "e0d4d8958542b81c02bc5e988c4145602db218e5aa9f11f7d4561bdbc67cd3cb"
         },
         "rq2_category_rates.csv": {
           "bytes": 359,
@@ -182,7 +182,7 @@
         },
         "rq2_provenance.json": {
           "bytes": 1487,
-          "sha256": "29c22a0ad66236c95802254501e0e3e5b5002d9158893aa3012b524788751938"
+          "sha256": "da6ed8df18ea5c952589f5d58f60c0ed8ca8e330ce21114d85e7c116b06a15b4"
         },
         "rq2_robustness.csv": {
           "bytes": 6413,
@@ -210,7 +210,7 @@
         },
         "rq3_provenance.json": {
           "bytes": 1742,
-          "sha256": "608abc87dac6c0a6ef38e105e044a554eb9c84d0ce69fbdb6a3a503cbc0eef55"
+          "sha256": "2fc436b60c071cacb12909596d69158df1713eaebdf81483fca9e2774dace5fd"
         },
         "rq3_robustness.csv": {
           "bytes": 5387,
@@ -218,7 +218,7 @@
         }
       }
     },
-    "generated_at_utc": "2026-05-01T17:27:08Z",
+    "generated_at_utc": "2026-05-01T18:25:55Z",
     "parent_manifest_path": "data_derived/latest/run_manifest.json",
     "parent_manifest_sha256": "c19602d1d3f0bbdba549c32e6d12e7caad3a69c148b68796ed5235c65d7f43e5",
     "robustness_variants": {
