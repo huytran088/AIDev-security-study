@@ -17,8 +17,8 @@ _run_id: 2026-04-25
 
 ## §1 Abstract
 
-> [HUMAN REVIEW: study-level abstract]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: study-level abstract] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > Across 2803 AI-coded repositories
 > in the AIDev v3 curated subset (PRs 2025-01-01 to 2025-07-31), we find
@@ -41,7 +41,7 @@ _run_id: 2026-04-25
 > likely to be rejected** (p=1.22e-22). Two
 > RQ2 categories (`secrets`, `fuzzing`) are pre-declared underpowered
 > and reported descriptively only.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -188,17 +188,17 @@ language slice?
 | 500-999 | 408 | 39.706 |
 | 1000+ | 1069 | 49.766 |
 
-> [HUMAN REVIEW: RQ1 takeaways]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: RQ1 takeaways] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > Adoption is dominated by SCA / SAST tooling that ships as a
 > GitHub-native action (`dependabot`, `codeql`, `renovate`); the long
 > tail of standalone tools (`bandit`, `checkov`, `tfsec`, …) sits
-> below 1% in both arms. Adoption rises monotonically with repo
+> below 1% in both repo types. Adoption rises monotonically with repo
 > popularity — the 1000+-stars bin is roughly 1.6× the 100–199 bin on
-> any-tool. Per-language differences are large: Go and Rust both clear
+> any-tool. Per-language differences are large: Go and Rust are both over
 > 49%, while JavaScript trails at 25.789%.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -279,12 +279,12 @@ within family. Sparse-band rows have `bh_family_member=False` and no
 
 ![RQ2 category configured rates](figures/rq2_category_rates.png)
 
-> [HUMAN REVIEW: RQ2 takeaways]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: RQ2 takeaways] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > The three best-powered RQ2 categories all show AI > control by ~3×:
 > SCA (OR=3.364, 95% CI [2.875, 3.936]),
-> SAST (OR=3.1166, [2.5123, 3.8663]),
+> SAST (OR=3.1166, 95% CI [2.5123, 3.8663]),
 > CI-hardening (OR=2.8658, [1.7985, 4.5664]).
 > All four BH-retained tools cluster around OR≈3 as well. The
 > direction is consistent: AI repos are *more* likely to have these
@@ -293,9 +293,9 @@ within family. Sparse-band rows have `bh_family_member=False` and no
 > `sast` adj_OR=0.4579 vs unadjusted 3.1166 —
 > consistent with much of the gap being driven by AI repos being
 > larger / more popular on average. The two pre-declared underpowered
-> families (`secrets`, `fuzzing`) have wide CIs that span 1; the
+> categories (`secrets`, `fuzzing`) have wide CIs that span 1; the
 > negatives are not informative.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -355,8 +355,8 @@ model. See `rq3_provenance.json:outcome_skipped_per_operator_decision`.
 | Cliff's δ              | -0.0087 |
 | Cliff's δ magnitude    | negligible (Romano thresholds) |
 
-> [HUMAN REVIEW: RQ3 narrative — direction-reversal of any_security_intervention]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: RQ3 narrative — direction-reversal of any_security_intervention] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > The pre-clean configs run had agentic *higher* than human on
 > `any_security_intervention` (agentic_rate ≈ 0.215 vs human
@@ -375,10 +375,10 @@ model. See `rq3_provenance.json:outcome_skipped_per_operator_decision`.
 > 668. The post-clean run is
 > the canonical RQ3 finding; the pre-clean run is reported here for
 > auditability only.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
-> [HUMAN REVIEW: RQ3 narrative — rejected OR=6.72]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: RQ3 narrative — rejected OR=6.72] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > Inside the same repos, agentic PRs are
 > **6.7× more likely to be rejected** than human PRs
@@ -397,7 +397,7 @@ model. See `rq3_provenance.json:outcome_skipped_per_operator_decision`.
 > robust to the configs revision. We surface this as
 > *agentic PRs are rejected at a much higher rate*, not as
 > *agentic PRs are rejected because of security*.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -447,8 +447,8 @@ in `power_analysis.csv` via the gap between `achieved_power_pre` and
 | rq2_per_tool | sparse_tool_standin_ctrl_0p5pct | tool_configured | 0.1365 | — | **not informative** |
 | rq2_per_tool | sparse_tool_standin_ctrl_0p5pct | tool_configured | 0.6417 | — | **not informative** |
 
-> [HUMAN REVIEW: §7 power narrative]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: §7 power narrative] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > Pre-flight power on the headline RQ3 outcomes is high (>0.95 even at
 > ρ=0.05 cluster correlation), and the post-hoc check confirms the
@@ -459,7 +459,7 @@ in `power_analysis.csv` via the gap between `achieved_power_pre` and
 > RQ2 categories `secrets` and `fuzzing` should be treated as
 > "not informative" and the negative findings on these categories do
 > not weigh against AI-vs-control adoption.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -507,8 +507,8 @@ keyword-inclusive version as the primary headline; v5 is the
 robustness control showing the headline depends on the keyword
 detector having been audited.
 
-> [HUMAN REVIEW: §8 robustness takeaways]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: §8 robustness takeaways] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > The rejection finding (OR=6.72) is robust across every RQ3 robustness
 > variant we ran; it does not depend on the keyword-pattern detector
@@ -516,7 +516,7 @@ detector having been audited.
 > depend on the post-clean configs (v5 reduces them to non-significant),
 > which is consistent with our story that the post-clean configs are
 > the right ones — and that the pre-clean configs were over-counting.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
@@ -551,11 +551,11 @@ unanchored short acronyms). The revised rules:
 | `security_bots.txt`       | `0e7ac508784c426f…`       | `edbd29526cce9e97…` |
 | `security_patterns.yaml`  | `2ed6668807285afa…` | `12c66325bfafe6bb…` |
 
-> [HUMAN REVIEW: §9 narrative — why the configs were revised]
-> DRAFT — replace with your reading.
+<!-- > [HUMAN REVIEW: §9 narrative — why the configs were revised] -->
+<!-- > DRAFT — replace with your reading. -->
 >
 > After the first Phase D run we noticed implausibly high intervention
-> rates — both arms exceeded 20%, with the human arm at
+> rates — both types exceeded 20%, with the human PRs at
 > 34.5% — and 95% of the matches came from the
 > keyword detector (14089 keyword hits vs
 > 733 bot-author hits). Inspecting the matches showed the
@@ -572,7 +572,7 @@ unanchored short acronyms). The revised rules:
 > "drop the keyword detector entirely" version of the same robustness
 > question — and it confirms the rejection finding survives without
 > keywords.
-> [/HUMAN REVIEW]
+<!-- > [/HUMAN REVIEW] -->
 
 ---
 
