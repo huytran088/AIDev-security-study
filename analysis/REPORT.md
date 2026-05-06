@@ -17,31 +17,27 @@ _run_id: 2026-04-25
 
 ## §1 Abstract
 
-> [HUMAN REVIEW: study-level abstract]
-> DRAFT — replace with your reading.
->
-> Across 2803 AI-coded repositories
-> in the AIDev v3 curated subset (PRs 2025-01-01 to 2025-07-31), we find
-> that AI-coded repos adopt at least one tracked security tool at
-> 40.35% — driven mostly by `dependabot`
-> (29.718%) and `codeql`
-> (16.696%). Against a 1:1 matched control of
-> 1744 non-AI-coded repos with
-> the same language / stars-bin / created-year / owner-type, AI repos
-> are significantly more likely to have SCA (OR=3.364),
-> SAST (3.1166) and CI-hardening
-> (2.8658) configured (BH-corrected
-> within category, m=5). Within the 588
-> repos that produced both PR types in-window
-> (13249 PRs after dropping
-> 2215 singletons), agentic PRs
-> are *less* likely to draw a security-tool intervention
-> (OR=0.5426, p=0.00122) but
-> are roughly **6.7× more
-> likely to be rejected** (p=1.22e-22). Two
-> RQ2 categories (`secrets`, `fuzzing`) are pre-declared underpowered
-> and reported descriptively only.
-> [/HUMAN REVIEW]
+Across 2803 AI-coded repositories
+in the AIDev v3 curated subset (PRs 2025-01-01 to 2025-07-31), we find
+that AI-coded repos adopt at least one tracked security tool at
+40.35% — driven mostly by `dependabot`
+(29.718%) and `codeql`
+(16.696%). Against a 1:1 matched control of
+1744 non-AI-coded repos with
+the same language / stars-bin / created-year / owner-type, AI repos
+are significantly more likely to have SCA (OR=3.364),
+SAST (3.1166) and CI-hardening
+(2.8658) configured (BH-corrected
+within category, m=5). Within the 588
+repos that produced both PR types in-window
+(13249 PRs after dropping
+2215 singletons), agentic PRs
+are *less* likely to draw a security-tool intervention
+(OR=0.5426, p=0.00122) but
+are roughly **6.7× more
+likely to be rejected** (p=1.22e-22). Two
+RQ2 categories (`secrets`, `fuzzing`) are pre-declared underpowered
+and reported descriptively only.
 
 ---
 
@@ -188,17 +184,13 @@ language slice?
 | 500-999 | 408 | 39.706 |
 | 1000+ | 1069 | 49.766 |
 
-> [HUMAN REVIEW: RQ1 takeaways]
-> DRAFT — replace with your reading.
->
-> Adoption is dominated by SCA / SAST tooling that ships as a
-> GitHub-native action (`dependabot`, `codeql`, `renovate`); the long
-> tail of standalone tools (`bandit`, `checkov`, `tfsec`, …) sits
-> below 1% in both arms. Adoption rises monotonically with repo
-> popularity — the 1000+-stars bin is roughly 1.6× the 100–199 bin on
-> any-tool. Per-language differences are large: Go and Rust both clear
-> 49%, while JavaScript trails at 25.789%.
-> [/HUMAN REVIEW]
+Adoption is dominated by SCA / SAST tooling that ships as a
+GitHub-native action (`dependabot`, `codeql`, `renovate`); the long
+tail of standalone tools (`bandit`, `checkov`, `tfsec`, …) sits
+below 1% in both arms. Adoption rises monotonically with repo
+popularity — the 1000+-stars bin is roughly 1.6× the 100–199 bin on
+any-tool. Per-language differences are large: Go and Rust both clear
+49%, while JavaScript trails at 25.789%.
 
 ---
 
@@ -279,23 +271,19 @@ within family. Sparse-band rows have `bh_family_member=False` and no
 
 ![RQ2 category configured rates](figures/rq2_category_rates.png)
 
-> [HUMAN REVIEW: RQ2 takeaways]
-> DRAFT — replace with your reading.
->
-> The three best-powered RQ2 categories all show AI > control by ~3×:
-> SCA (OR=3.364, 95% CI [2.875, 3.936]),
-> SAST (OR=3.1166, [2.5123, 3.8663]),
-> CI-hardening (OR=2.8658, [1.7985, 4.5664]).
-> All four BH-retained tools cluster around OR≈3 as well. The
-> direction is consistent: AI repos are *more* likely to have these
-> tools configured. Note that the adjusted GLM (controlling for
-> log_stars, language, etc.) shrinks the OR substantially — e.g.
-> `sast` adj_OR=0.4579 vs unadjusted 3.1166 —
-> consistent with much of the gap being driven by AI repos being
-> larger / more popular on average. The two pre-declared underpowered
-> families (`secrets`, `fuzzing`) have wide CIs that span 1; the
-> negatives are not informative.
-> [/HUMAN REVIEW]
+The three best-powered RQ2 categories all show AI > control by ~3×:
+SCA (OR=3.364, 95% CI [2.875, 3.936]),
+SAST (OR=3.1166, [2.5123, 3.8663]),
+CI-hardening (OR=2.8658, [1.7985, 4.5664]).
+All four BH-retained tools cluster around OR≈3 as well. The
+direction is consistent: AI repos are *more* likely to have these
+tools configured. Note that the adjusted GLM (controlling for
+log_stars, language, etc.) shrinks the OR substantially — e.g.
+`sast` adj_OR=0.4579 vs unadjusted 3.1166 —
+consistent with much of the gap being driven by AI repos being
+larger / more popular on average. The two pre-declared underpowered
+families (`secrets`, `fuzzing`) have wide CIs that span 1; the
+negatives are not informative.
 
 ---
 
@@ -355,49 +343,41 @@ model. See `rq3_provenance.json:outcome_skipped_per_operator_decision`.
 | Cliff's δ              | -0.0087 |
 | Cliff's δ magnitude    | negligible (Romano thresholds) |
 
-> [HUMAN REVIEW: RQ3 narrative — direction-reversal of any_security_intervention]
-> DRAFT — replace with your reading.
->
-> The pre-clean configs run had agentic *higher* than human on
-> `any_security_intervention` (agentic_rate ≈ 0.215 vs human
-> 0.345); the post-clean
-> run has agentic *lower* than human (agentic
-> 0.0248 vs human
-> 0.0481, FE OR=0.5426).
-> The direction reversed because the pre-clean
-> `security_patterns.yaml` matched on bare keywords like "security"
-> as a substring, which the audit found was firing on
-> non-security comments (e.g. mentions of "transport security
-> layer" or "security context" inside ordinary code review). The
-> post-clean rules `\b`-anchor short acronyms and require explicit
-> phrasings; bot-keyword hits dropped from
-> 14089 to
-> 668. The post-clean run is
-> the canonical RQ3 finding; the pre-clean run is reported here for
-> auditability only.
-> [/HUMAN REVIEW]
+The pre-clean configs run had agentic *higher* than human on
+`any_security_intervention` (agentic_rate ≈ 0.215 vs human
+0.345); the post-clean
+run has agentic *lower* than human (agentic
+0.0248 vs human
+0.0481, FE OR=0.5426).
+The direction reversed because the pre-clean
+`security_patterns.yaml` matched on bare keywords like "security"
+as a substring, which the audit found was firing on
+non-security comments (e.g. mentions of "transport security
+layer" or "security context" inside ordinary code review). The
+post-clean rules `\b`-anchor short acronyms and require explicit
+phrasings; bot-keyword hits dropped from
+14089 to
+668. The post-clean run is
+the canonical RQ3 finding; the pre-clean run is reported here for
+auditability only.
 
-> [HUMAN REVIEW: RQ3 narrative — rejected OR=6.72]
-> DRAFT — replace with your reading.
->
-> Inside the same repos, agentic PRs are
-> **6.7× more likely to be rejected** than human PRs
-> (95% CI [4.59,
-> 9.84],
-> p = 1.22e-22), even after
-> controlling for `any_security_intervention` as a covariate. This is
-> a substantive finding, but the interpretation is **not causal**.
-> Several confounds remain: agentic PRs may be triaged differently
-> by maintainers (closed without merge as exploratory), they may
-> target different file paths or task types, and AIDev's curation
-> filter selects on PRs that "look agentic" which may bias the
-> comparison set. The bot-identity-only robustness (v5)
-> reproduces the rejection OR almost exactly
-> (6.71), so the rejection finding is
-> robust to the configs revision. We surface this as
-> *agentic PRs are rejected at a much higher rate*, not as
-> *agentic PRs are rejected because of security*.
-> [/HUMAN REVIEW]
+Inside the same repos, agentic PRs are
+**6.7× more likely to be rejected** than human PRs
+(95% CI [4.59,
+9.84],
+p = 1.22e-22), even after
+controlling for `any_security_intervention` as a covariate. This is
+a substantive finding, but the interpretation is **not causal**.
+Several confounds remain: agentic PRs may be triaged differently
+by maintainers (closed without merge as exploratory), they may
+target different file paths or task types, and AIDev's curation
+filter selects on PRs that "look agentic" which may bias the
+comparison set. The bot-identity-only robustness (v5)
+reproduces the rejection OR almost exactly
+(6.71), so the rejection finding is
+robust to the configs revision. We surface this as
+*agentic PRs are rejected at a much higher rate*, not as
+*agentic PRs are rejected because of security*.
 
 ---
 
@@ -447,19 +427,15 @@ in `power_analysis.csv` via the gap between `achieved_power_pre` and
 | rq2_per_tool | sparse_tool_standin_ctrl_0p5pct | tool_configured | 0.1365 | — | **not informative** |
 | rq2_per_tool | sparse_tool_standin_ctrl_0p5pct | tool_configured | 0.6417 | — | **not informative** |
 
-> [HUMAN REVIEW: §7 power narrative]
-> DRAFT — replace with your reading.
->
-> Pre-flight power on the headline RQ3 outcomes is high (>0.95 even at
-> ρ=0.05 cluster correlation), and the post-hoc check confirms the
-> headline rejections survive. The post-hoc shrinkage on
-> `any_security_intervention` and `rejected` reflects realized FE SEs
-> roughly 1.4–2× the Kish-DEFF closed-form estimate — common for
-> within-repo logit FE on imbalanced count outcomes. The two
-> RQ2 categories `secrets` and `fuzzing` should be treated as
-> "not informative" and the negative findings on these categories do
-> not weigh against AI-vs-control adoption.
-> [/HUMAN REVIEW]
+Pre-flight power on the headline RQ3 outcomes is high (>0.95 even at
+ρ=0.05 cluster correlation), and the post-hoc check confirms the
+headline rejections survive. The post-hoc shrinkage on
+`any_security_intervention` and `rejected` reflects realized FE SEs
+roughly 1.4–2× the Kish-DEFF closed-form estimate — common for
+within-repo logit FE on imbalanced count outcomes. The two
+RQ2 categories `secrets` and `fuzzing` should be treated as
+"not informative" and the negative findings on these categories do
+not weigh against AI-vs-control adoption.
 
 ---
 
@@ -507,16 +483,12 @@ keyword-inclusive version as the primary headline; v5 is the
 robustness control showing the headline depends on the keyword
 detector having been audited.
 
-> [HUMAN REVIEW: §8 robustness takeaways]
-> DRAFT — replace with your reading.
->
-> The rejection finding (OR=6.72) is robust across every RQ3 robustness
-> variant we ran; it does not depend on the keyword-pattern detector
-> being on. The intervention-count and any-intervention findings *do*
-> depend on the post-clean configs (v5 reduces them to non-significant),
-> which is consistent with our story that the post-clean configs are
-> the right ones — and that the pre-clean configs were over-counting.
-> [/HUMAN REVIEW]
+The rejection finding (OR=6.72) is robust across every RQ3 robustness
+variant we ran; it does not depend on the keyword-pattern detector
+being on. The intervention-count and any-intervention findings *do*
+depend on the post-clean configs (v5 reduces them to non-significant),
+which is consistent with our story that the post-clean configs are
+the right ones — and that the pre-clean configs were over-counting.
 
 ---
 
@@ -551,28 +523,24 @@ unanchored short acronyms). The revised rules:
 | `security_bots.txt`       | `0e7ac508784c426f…`       | `edbd29526cce9e97…` |
 | `security_patterns.yaml`  | `2ed6668807285afa…` | `12c66325bfafe6bb…` |
 
-> [HUMAN REVIEW: §9 narrative — why the configs were revised]
-> DRAFT — replace with your reading.
->
-> After the first Phase D run we noticed implausibly high intervention
-> rates — both arms exceeded 20%, with the human arm at
-> 34.5% — and 95% of the matches came from the
-> keyword detector (14089 keyword hits vs
-> 733 bot-author hits). Inspecting the matches showed the
-> rules were firing on substring "security" inside ordinary code
-> review (mentions of TLS, security context, etc.) and on
-> unanchored short acronyms inside identifier names. We revised the
-> rules to `\b`-anchor acronyms, drop substring-prone bare keywords,
-> and require explicit phrasings; bot-author detection was extended
-> with three vendor bots we had missed.
->
-> The post-clean run is the canonical headline. The pre-clean run is
-> retained in `run_manifest.json:phase_d.prior_run` for auditability
-> only. The §8 v5 (bot-identity-only) variant is essentially the
-> "drop the keyword detector entirely" version of the same robustness
-> question — and it confirms the rejection finding survives without
-> keywords.
-> [/HUMAN REVIEW]
+After the first Phase D run we noticed implausibly high intervention
+rates — both arms exceeded 20%, with the human arm at
+34.5% — and 95% of the matches came from the
+keyword detector (14089 keyword hits vs
+733 bot-author hits). Inspecting the matches showed the
+rules were firing on substring "security" inside ordinary code
+review (mentions of TLS, security context, etc.) and on
+unanchored short acronyms inside identifier names. We revised the
+rules to `\b`-anchor acronyms, drop substring-prone bare keywords,
+and require explicit phrasings; bot-author detection was extended
+with three vendor bots we had missed.
+
+The post-clean run is the canonical headline. The pre-clean run is
+retained in `run_manifest.json:phase_d.prior_run` for auditability
+only. The §8 v5 (bot-identity-only) variant is essentially the
+"drop the keyword detector entirely" version of the same robustness
+question — and it confirms the rejection finding survives without
+keywords.
 
 ---
 
