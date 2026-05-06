@@ -1,438 +1,289 @@
-# Security Tooling Adoption & Intervention in AI-Assisted Software Development (AIDev)  
+# Security Tooling Adoption & Intervention in AI-Assisted Software Development
 
-This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). The end-to-end pipeline runner is `analysis/scripts/build_all.sh`; the `.githooks/` pre-commit chain blocks commits where `analysis/REPORT.md` or `analysis/tables/*_main.csv` disagree with `data_derived/latest/`.
+Empirical study of how security tooling is **configured** at the repository
+level and how security automation **intervenes** at the pull-request level
+when AI coding agents (Claude Code, Devin, Cursor, Codex, …) ship code.
+Built on the [AIDev v3 dataset](https://huggingface.co/datasets/hao-li/AIDev)
+(current subset: ≥100-star repos, from 2025-01-01 to 2025-07-31)
+plus a matched control cohort of repositories with no observed agentic
+PRs, fetched from GitHub API.
 
-## 0) Scope and goals
-This project studies **security tooling configuration (adoption)** at the repository level and **security automation intervention** at the pull-request (PR) level, using:
-- **AIDev** dataset: https://huggingface.co/datasets/hao-li/AIDev
-    - Paper: https://arxiv.org/abs/2602.09185
-- A **matched control set of repositories without observed agentic PRs**, collected via GitHub REST API.
-- A **within-repo PR comparison** between agentic PRs and human-authored PRs.
+The study answers three questions:
 
-This project **does not claim ground-truth vulnerabilities**. It measures:
-- **Configured tooling** (presence of config/workflow artifacts),
-- **Observed interventions** (bots/tools commenting/reviewing in PRs),
-- **PR outcomes** (merged vs closed), as governance proxies.
+- **RQ1** — How widely are security tools configured across repositories
+  with agentic PR activity?
+- **RQ2** — Are security tools configured at *different* rates in AI repos
+  versus matched non-AI controls?
+- **RQ3** — Do agentic PRs receive different security interventions (and
+  outcomes) than human PRs in the same repos?
 
----
-
-## 1) Research questions (RQ1–RQ3)
-
-### RQ1 — Configured security tooling landscape (AI repos)
-**RQ1:** How widely are security tools **configured** across repositories represented in the AIDev agentic-PR cohort?
-
-- Unit: **Repository**
-- Construct: **Configured adoption** (tool setup detectable via repo files)
-
-### RQ2 — AI repos vs matched repos without observed agentic PRs
-**RQ2:** Are security tools **configured at different rates** in repositories with observed agentic PR activity (AI repos) compared to matched repositories with **no observed agentic PR activity** under a defined detection rule (control repos)?
-
-- Unit: **Repository**
-- Construct: configured adoption; adjusted for repo characteristics
-
-### RQ3 — Security automation intervention: agentic PRs vs human PRs (within the same repos)
-**RQ3:** Do agentic PRs receive different rates/volumes of **security automation intervention** than human-authored PRs, within the same repositories and time window?
-
-- Unit: **Pull request**
-- Construct: **Observed intervention** (security tool/bot comments/reviews/inline comments)
+Design is matched at the repo level (RQ2, CEM on language × stars × age ×
+owner type) and within-repo at the PR level (RQ3, repo fixed effects on
+agentic vs human PRs). All hypothesis tests pre-declared in
+[`docs/STUDY_DESIGN.md §7`](docs/STUDY_DESIGN.md). The full report
+is at [`analysis/REPORT.md`](analysis/REPORT.md).
 
 ---
 
-## 2) Operational definitions (write these verbatim in your paper)
+## Results
 
-### 2.1 AI repository (AI repo)
-A GitHub repository that appears in the **AIDev curated agentic-PR set** (i.e., contains ≥1 agentic PR in the curated subset).
+Numbers below are read directly from the headline JSONs under
+`analysis/tables/`. The cohort is **2,803 AI repos** + **1,744 matched
+controls**, with **13,249 PRs** entering the within-repo RQ3 frame after
+the singleton-repo drop.
 
-### 2.2 Control repository (non-AI repo; “no observed agentic PRs”)
-A GitHub repository that:
-1) **Does not** appear in the AI repo list, and  
-2) In a sampled set of PRs within the analysis window, has **no PR** whose title/body matches your **agentic fingerprint rules** (Section 6.2).
+### RQ1 — Configured adoption (AI repos)
 
-> Important: This is “no observed agentic PRs under our detection strategy,” not proof of absence.
+40.4% of AI repos configure ≥1 security tool. Source:
+[`rq1_headline.json`](analysis/tables/rq1_headline.json).
 
-### 2.3 Configured adoption (repo-level)
-A tool is **configured** if the repository contains **one or more identifiable configuration artifacts**, such as:
-- GitHub Actions workflows in `.github/workflows/*.yml|yaml` referencing the tool, and/or
-- Tool-specific config files (e.g., `.github/dependabot.yml`, `renovate.json`, `.semgrep.yml`, `gitleaks.toml`, etc.).
+| Category | Adoption |
+|---|---|
+| SCA (top) | **34.8%** |
+| SAST | 17.5% |
+| CI hardening | 3.5% |
+| Secrets scanning | 1.0% |
+| Fuzzing (bottom) | **0.4%** |
 
-### 2.4 Observed intervention (PR-level)
-A PR has a **security automation intervention** if, during its lifecycle, any of the following occurs:
-- A comment/review/inline review comment authored by a **known security tool identity** (bot login list), or
-- A bot-authored message matching **security-related patterns** (CVE/GHSA/CWE tokens, “vulnerability”, “secret”, etc.) per your rule set.
+Top-3 tools: Dependabot 29.7%, CodeQL 16.7%, Renovate 5.3%.
 
----
+### RQ2 — AI repos vs matched controls
 
-## 3) Inputs and outputs
+3 categories and 4 tools are significantly more common in AI repos
+(Benjamini–Hochberg-adjusted Fisher's exact, all p_adj < 1e-4). Source:
+[`rq2_headline.json`](analysis/tables/rq2_headline.json).
 
-### Inputs
-- **AIDev dataset tables** (Parquet): at minimum
-  - agentic PR metadata (e.g., `pull_request`)
-  - comments/reviews/inline comments (e.g., `pr_comments`, `pr_reviews`, `pr_review_comments_v2`)
-  - repo metadata (e.g., `all_repository`)
-  - (optional) commit/file metadata (e.g., `pr_commits`, `pr_commit_details`) for matching by churn
-- **GitHub REST API** access (PAT token) to fetch:
-  - repository files (workflow/config detection)
-  - control repos (search + metadata)
-  - human PRs in AI repos (for within-repo comparisons)
-  - PR bodies/titles for agent fingerprint screening
+| Tool | OR (95% CI) | p_adj |
+|---|---|---|
+| Renovate | 3.86 (2.52, 5.92) | 3.4e-12 |
+| CodeQL | 3.13 (2.51, 3.90) | 7.2e-28 |
+| Dependabot | 3.12 (2.65, 3.69) | 4.1e-46 |
+| OSSF Scorecard | 2.57 (1.57, 4.20) | 7.0e-05 |
 
-### Outputs (recommended derived tables)
-1) `repo_security_adoption.parquet`  
-   - repo_id/full_name, cohort (AI/control), covariates, tool flags, category flags
-2) `pr_interventions.parquet`  
-   - pr_id/url, repo_full_name, pr_type (agentic/human), intervention flags/counts, outcomes
-3) `matching_diagnostics.parquet`  
-   - cohort balance statistics (SMDs), matched pair IDs, sample sizes
+Categories with the same direction: **SCA** (OR 3.36), **SAST** (OR 3.12),
+**CI hardening** (OR 2.87). 15 sparse-band tools (e.g., Semgrep, Snyk,
+Trivy, Gitleaks) were excluded from BH testing for low cell counts; full
+list in the JSON.
 
----
+### RQ3 — Agentic vs human PRs (same repos)
 
-## 4) Study design overview (phases)
+Agentic PRs receive **fewer** security interventions than human PRs in the
+same repos, but are **far more likely to be rejected**. Source:
+[`rq3_headline.json`](analysis/tables/rq3_headline.json).
 
-### Phase A — Prepare AI repo cohort and agentic PR set
-Goal: Build the AI repo list and agentic PR list for the time window.
+| Outcome | Effect | 95% CI | p | Model |
+|---|---|---|---|---|
+| any security intervention | **OR = 0.54** | (0.37, 0.79) | 0.0012 | logit + repo FE |
+| security intervention count | **IRR = 0.69** | (0.49, 0.97) | 0.031 | Poisson (NB fallback) |
+| PR rejected (closed unmerged) | **OR = 6.72** | (4.59, 9.84) | 1.2e-22 | logit + repo FE |
 
-### Phase B — Build matched control repo cohort (RQ1)
-Goal: Identify repos not in AI cohort; match to AI repos on key covariates; screen for no observed agentic PRs.
+### Figures
 
-### Phase C — Detect configured security tooling (RQ1, RQ2)
-Goal: For all AI and control repos, detect security tool configuration via workflow/config artifacts.
+All figures live under [`analysis/figures/`](analysis/figures/) as paired
+PNG + PDF.
 
-### Phase D — Sample human PRs in AI repos and measure interventions (RQ3)
-Goal: Compare intervention rates on agentic PRs vs human PRs within the same repos/time window.
-
-### Phase E — Statistics, corrections, robustness checks, and reporting
-Goal: Run Fisher/OR, regressions, BH correction; run robustness checks and document threats to validity.
-
----
-
-## 5) Step-by-step runbook
-
-### Step 0 — Environment & reproducibility setup
-
-The bullets below are the *requirements* for the environment. Concrete setup uses `uv` for Python and the `hf` CLI for AIDev dataset download.
-
-1) Create a repo for the study with:
-   - `README.md` (this project)
-   - `configs/` (tool identity lists, regex rules, search queries)
-   - `data_raw/` (AIDev parquets, cached API JSON)
-   - `data_derived/` (derived tables)
-   - `analysis/` (notebooks/scripts)
-2) Set a random seed used everywhere (sampling, matching).
-3) Set GitHub auth:
-   - `GITHUB_TOKEN` with read-only scopes sufficient for repo contents and PR metadata.
-4) Implement caching for GitHub API responses to avoid rate-limit failures:
-   - Cache key: `{endpoint}-{repo}-{params_hash}.json`
-5) Record per-run provenance in `data_derived/<YYYY-MM-DD>/run_manifest.json`:
-   - dataset version (AIDev DOI hash),
-   - date of API collection,
-   - rule-set SHAs (`configs/*.yaml`/`*.txt`),
-   - seed, window, library versions (`uv pip freeze`), `uv.lock` SHA,
-   - inline-comment table choice (`pr_review_comments_v2` by default; see
-     §6.1 below),
-   - row counts of every output table.
-
-   `analysis/scripts/write_manifest.py` ships the canonical schema and a
-   `write_manifest()` helper; every phase calls it before exiting.
+- RQ1: [adoption by category](analysis/figures/rq1_adoption_by_category.png) ·
+  [adoption by tool](analysis/figures/rq1_adoption_by_tool.png) ·
+  [adoption by language](analysis/figures/rq1_adoption_by_language.png)
+- RQ2: [category rates](analysis/figures/rq2_category_rates.png) ·
+  [tool forest plot](analysis/figures/rq2_tool_forest.png)
+- RQ3: [outcomes forest plot](analysis/figures/rq3_outcomes_forest.png) ·
+  [per-repo intervention rates](analysis/figures/rq3_per_repo_rates.png)
 
 ---
 
-### Step 1 — Construct AI repo cohort from AIDev
-1) Load the curated agentic PR table(s).
-2) Filter agentic PRs to your analysis window:
-   - Recommended window: PR created/updated timestamps up to **Jul 31, 2025** (the AIDev v3 dataset cutoff).
-3) Extract AI repo list:
-   - `AI_REPOS = unique(repo_full_name)` from curated agentic PR set.
-4) Extract PR outcomes for agentic PRs:
-   - merged vs closed (and timestamps if available).
+## Requirements
 
-**Deliverable:** `ai_repos.csv`, `agentic_prs.parquet`
-
----
-
-### Step 2 — Build matched control repo cohort (RQ1)
-
-#### Choose matching covariates (repo-level)
-Minimum recommended covariates:
-- `stars` (log scale or binned),
-- `primary_language`,
-- `repo_age` (created_at),
-- `activity` proxy (e.g., pushes last N months or PR count in window),
-- `owner_type` (org vs user).
-
-Optional but helpful:
-- `fork` status (exclude forks),
-- `archived` status (exclude archived),
-- `license` (optional).
-
-#### Sample candidate control repos via GitHub Search API
-1) For each AI repo, define a “matching bucket”:
-   - language = AI repo language
-   - stars bin (e.g., 100–199, 200–499, 500–999, 1000+)
-   - created_at bin (e.g., year)
-2) Query GitHub Search API for repos in that bucket.
-3) Exclude any repo whose `full_name` is in `AI_REPOS`.
-4) Deduplicate across buckets.
-
-#### Screen candidates for “no observed agentic PRs”
-For each candidate control repo:
-1) Fetch up to `N_PR` PRs in the analysis window (e.g., 30–50 most recent merged/closed in-window).
-2) Apply **agent fingerprint rules** to PR title/body (Section 6.2).
-3) If **any** PR matches fingerprints, drop the repo.
-4) Otherwise, keep as eligible control.
-
-#### Match AI repos to control repos
-Recommended matching approach (robust and simple to defend):
-- **Coarsened Exact Matching (CEM)** or exact matching on:
-  - language,
-  - stars bin,
-  - repo age bin,
-  - owner type,
-- then within strata pick nearest neighbors on continuous covariates (e.g., log(stars), activity).
-
-Diagnostics:
-- Compute **standardized mean differences (SMD)** for all covariates pre/post match.
-- Target: SMD < 0.1 for core covariates.
-
-**Deliverable:** `control_repos.csv`, `repo_matching_pairs.csv`, `balance_table.csv`
+- **Python 3.11+** managed by [`uv`](https://docs.astral.sh/uv/) — `uv.lock`
+  is committed and is part of the reproducibility contract.
+- **GitHub personal access token** (`public_repo` scope) for the control
+  cohort + tooling-detection passes.
+- **Hugging Face token** with read access to the AIDev dataset.
+- **~30 GB free disk** for the AIDev parquet snapshot
+  (`data_raw/aidev/`) and the GitHub response cache
+  (`data_raw/github_cache/`).
+- **Node.js 18+** (optional) — only required for the GitHub MCP server
+  used by the agent-driven workflow in [`SETUP.md`](SETUP.md). The raw
+  scripts under `analysis/scripts/` run standalone without it.
+- **Claude Code** (optional) — the subagent recipes in
+  [`CLAUDE.md`](CLAUDE.md) are convenience wrappers; everything is
+  reproducible without them.
 
 ---
 
-### Step 3 — Detect configured security tooling (RQ1, RQ2)
+## Instructions
 
-#### Define tool taxonomy and detection signatures
-Maintain a config file `configs/tools.yaml` with:
-- tool name
-- category (SAST/SCA/Secrets/Fuzzing/CI hardening)
-- detection patterns:
-  - workflow `uses:` strings (preferred),
-  - config filenames,
-  - known action names.
+### 1. Clone and install
 
-Example detection signals (non-exhaustive):
-- CodeQL: workflow references `github/codeql-action`
-- Dependabot: `.github/dependabot.yml`
-- Renovate: `renovate.json`, `.renovaterc*`, or workflow usage
-- Semgrep: workflow uses Semgrep action or `.semgrep.yml`
-- Gitleaks: workflow uses gitleaks action or `gitleaks.toml`
-- Scorecard: workflow uses OpenSSF Scorecard action
-- StepSecurity harden-runner: workflow uses `step-security/harden-runner`
+```bash
+git clone <repo-url> AIDev-security-study
+cd AIDev-security-study
+uv sync           # installs pinned deps from uv.lock
+```
 
-#### Collect repo file evidence
-For each repo (AI + control):
-1) Fetch list of files under:
-   - `.github/workflows/`
-   - repository root for known config filenames
-2) For each workflow YAML file:
-   - parse as text
-   - search for `uses:` patterns
-3) Set tool flags and category flags.
+### 2. Configure environment
 
-> Strong recommendation: also store “evidence strings” (which file/pattern triggered detection) for auditability.
+Create `.env` at the repo root with the following starter content. Fill in
+the token and dataset-record fields with your own values; the seed and
+window are the published defaults and should not be changed for a
+reproduction run.
 
-#### Time alignment (optional but recommended)
-If feasible, avoid look-ahead bias by estimating adoption timing:
-- Find the first commit that introduced the config/workflow file (via commits API on that path).
-- Mark tool as “active” only for PRs created after that commit date.
+```dotenv
+# Authentication
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-**Deliverable:** `repo_security_adoption.parquet` (tool/category booleans + evidence)
+# Reproducibility
+RANDOM_SEED=42
+WINDOW_START=2025-01-01
+WINDOW_END=2025-07-31
 
----
+# AIDev dataset pinning (see https://zenodo.org/records/16919272)
+AIDEV_DATASET_VERSION=v3
+AIDEV_DATASET_RECORD_ID=16919272
+AIDEV_DATASET_DOI=10.5281/zenodo.16919272
+```
 
-### Step 4 — Sample human PRs in AI repos and measure interventions (RQ3)
+### 3. Pull the AIDev dataset from Hugging Face
 
-#### Sample human PRs (same repos, same time window)
-For each AI repo:
-1) Fetch PRs in the analysis window.
-2) Exclude:
-   - PRs authored by known bots (type Bot / login ends with `[bot]`),
-   - dependency update bots if you want to avoid skew (optional sensitivity analysis).
-3) Sample human PRs with stratification:
-   - match distribution of PR sizes to agentic PRs using churn proxies (files changed, additions, deletions),
-   - optionally match by task type if available.
+```bash
+uv run python -c "
+from huggingface_hub import snapshot_download
+snapshot_download(
+    repo_id='hao-li/AIDev',
+    repo_type='dataset',
+    local_dir='data_raw/aidev',
+    revision='v3',
+)
+"
+```
 
-> **Canonical recipe:** per-repo churn-quartile binning, sampling
-> without replacement via `numpy.random.default_rng(RANDOM_SEED)`, with
-> shortfall logging to `human_pr_sample_log.csv`. Implementation lives
-> in `analysis/scripts/phase_d_interventions.py`.
+This populates `data_raw/aidev/*.parquet` (`pull_request`,
+`pr_comments`, `pr_reviews`, `pr_review_comments_v2`, `all_repository`,
+…). The raw inputs are read-only thereafter.
 
-**Deliverable:** `human_pr_sample.parquet`
+### 4. Run the phases
 
-#### Extract intervention signals from AIDev PR artifacts
-For **agentic PRs** and **sampled human PRs**, compute:
-- `any_security_intervention` (0/1)
-- `security_intervention_count`
-- `any_changes_requested_by_security_tool` (0/1), if review state available
-- optional: `time_to_first_security_intervention`
+Each phase writes to `data_derived/<YYYY-MM-DD>/` and updates the
+`data_derived/latest` symlink. GitHub responses are cached under
+`data_raw/github_cache/`, so re-runs hit cache by default.
 
-Intervention sources (in priority order):
-1) Known tool identities (bot login list) in:
-   - PR comments (`pr_comments`)
-   - PR reviews (`pr_reviews`)
-   - PR review comments — inline (`pr_review_comments_v2`, **not** v1)
-2) Bot-authored text matching security patterns (Section 6.3)
+```bash
+# Phase A — AI cohort + agentic PR table
+uv run python analysis/scripts/phase_a_cohort.py
 
-> **Inline-comment table choice:** AIDev ships both `pr_review_comments`
-> (the v1 19,450-row table) and `pr_review_comments_v2`. Default to
-> `pr_review_comments_v2` for Phase D and record the choice (and row
-> count) in `run_manifest.json`.
+# Phase B — matched control cohort (CEM + SMD diagnostics)
+uv run python analysis/scripts/phase_b_match.py
 
-> Keep a mapping file `configs/security_bots.txt` listing logins for Dependabot, Renovate, etc., plus any discovered tool bots.
+# Phase C — security tooling detection on AI + control repos
+uv run python analysis/scripts/phase_c_tooling.py
 
-#### Extract PR outcomes
-For each PR:
-- merged vs closed (rejected)
-- timestamps if available (for controlling time trends)
+# Phase D — RQ3 within-repo human PR sample + intervention classification
+uv run python analysis/scripts/phase_d_interventions.py
 
-**Deliverable:** `pr_interventions.parquet`
+# Phase E — analysis: power, RQ1/2/3 tables, robustness, post-hoc power, report
+uv run python analysis/scripts/power_analysis_pre.py
+uv run python analysis/scripts/rq1_compute.py
+uv run python analysis/scripts/rq2_compute.py
+uv run python analysis/scripts/rq3_compute.py
+uv run python analysis/scripts/robustness.py
+uv run python analysis/scripts/power_analysis_post.py
+uv run python analysis/scripts/build_report.py
+```
 
----
+Or run end-to-end in one shot:
 
-## 6) Rule sets (keep these versioned)
+```bash
+bash analysis/scripts/build_all.sh
+```
 
-### 6.1 Tool identity list (interventions)
-Create `configs/security_bots.txt` with logins (examples):
-- dependabot[bot]
-- renovate[bot]
-- semgrep[bot] (if present in your data)
-- snyk-bot / snyk[bot] (if present)
-- gitleaks / trufflehog bots (if present)
-- openssf-scorecard / scorecard bots (if present)
+After the pipeline completes, headline tables land under
+[`analysis/tables/`](analysis/tables/), figures under
+[`analysis/figures/`](analysis/figures/), and the rendered narrative at
+[`analysis/REPORT.md`](analysis/REPORT.md).
 
-**Procedure to expand list:**
-1) From AIDev comment/review authors, list top bot accounts.
-2) Manually label which are security-related.
-3) Freeze into a versioned list.
-
-### 6.2 Agent fingerprint rules (for control repo screening)
-Create `configs/agent_fingerprints.yaml` with conservative regex patterns for PR title/body such as:
-- “Generated by”
-- “Created with Cursor”
-- “Devin”
-- “Claude Code”
-- “Codex”
-- “AI-assisted”
-- “Automated PR”
-- known agent footers/templates (your curated list)
-
-**Policy:** prioritize precision over recall for control cohort cleanliness.
-
-### 6.3 Security text patterns (backup intervention classifier)
-Create `configs/security_patterns.yaml`:
-- tokens: `CVE-\d{4}-\d+`, `GHSA-[\w-]+`, `CWE-\d+`
-- keywords: `vulnerability`, `injection`, `XSS`, `SSRF`, `RCE`, `secret`, `credential`, `token`, `leak`, `unsafe`, `path traversal`, `sql injection`, `command injection`
-- keep as a “secondary signal” only when author is Bot (or when combined with tool config presence)
+> The agent-driven workflow (data-miner → intervention-classifier →
+> analyst → reporter) is documented in [`CLAUDE.md`](CLAUDE.md) and
+> [`SETUP.md`](SETUP.md). It produces identical artifacts; the scripts
+> above are the canonical entry points either way.
 
 ---
 
-## 7) Statistical analysis plan (mapped to RQs)
+## Pre-built derived data
 
-### RQ1 — Adoption rates in AI repos
-Report:
-- `% AI repos with tool configured` (per tool and per category)
-- breakdown by language and stars bins (descriptive)
+Re-running Phases A–D end-to-end against the GitHub API takes several
+hours and burns rate-limit budget. The full
+`data_derived/<YYYY-MM-DD>/` tree from the run that backs this README is
+released as an anonymous Google Drive archive — **link to be added on
+publication**.
 
-Optional modeling:
-- logistic regression: `tool_configured ~ log(stars) + language + repo_age + activity + owner_type`
+To use the snapshot, download the archive, unpack it into `data_derived/`
+so it lives at `data_derived/<YYYY-MM-DD>/`, and update the symlink:
 
-### RQ2 — AI repos vs control repos (configured adoption)
-For each tool/category:
-1) **Fisher’s exact test** on 2x2 table (AI vs control × configured yes/no)
-2) **Odds ratio** with 95% CI
-3) **Logistic regression**:
-   - `tool_configured ~ AI_indicator + log(stars) + language + repo_age + activity + owner_type`
-   - Use robust SE; consider clustering by owner/org if feasible.
-4) **Benjamini–Hochberg** correction across the set of tools (define your family):
-   - Option A: BH within each category
-   - Option B: BH across all tools (more conservative)
+```bash
+ln -sfn <YYYY-MM-DD> data_derived/latest
+```
 
-### RQ3 — Intervention differences (agentic PRs vs human PRs within AI repos)
-Outcomes:
-- Binary: `any_security_intervention`
-- Count: `security_intervention_count`
-- Binary: `rejected` (closed without merge)
-
-> **Singleton-repo drop (mandatory for FE validity):** before fitting any
-> repo-FE model, drop repos that don't contain both `pr_type=='agentic'`
-> and `pr_type=='human'` rows in the analysis frame. The FE coefficient is
-> degenerate otherwise (all variation lives in the omitted category).
-> `analysis/scripts/rq3_compute.py` applies the filter and documents the
-> singleton drop count in `analysis/tables/rq3_main.csv`.
-
-Recommended models:
-- Binary: logistic regression with **repo fixed effects** (or random intercept):
-  - `any_intervention ~ agentic + churn + task_type + time + C(repo)`
-  - Cluster-robust SE on `repo_full_name` in addition to `C(repo)` — the
-    two are not redundant (FE absorb level differences, cluster SE handle
-    within-repo correlation in residuals).
-- Counts: **negative binomial regression** (preferred over Mann–Whitney due to zeros and clustering):
-  - `intervention_count ~ agentic + churn + task_type + time + C(repo)`
-  - If `statsmodels.NegativeBinomial.fit_regularized()` fails to converge
-    or refuses `cov_type='cluster'`, fall back to **Poisson with
-    cluster-robust SE** as a quasi-likelihood approximation, and report
-    fit diagnostics (α̂, log-likelihood, convergence status) regardless.
-- Rejection: logistic regression:
-  - `rejected ~ agentic + any_intervention + churn + task_type + time + C(repo)`
-  - (Interpretation: association, not causation.)
-- Effect-size reporting: incidence rate ratio (IRR) for NB, odds ratio
-  (OR) for logit, both with cluster-robust 95% CI.
-
-If you keep your nonparametric/effect-size stack (acceptable as secondary):
-- Mann–Whitney U for counts **after within-repo matching**
-- Cliff’s delta for `any_security_concern` (binary)
+You can then skip directly to Phase E (`rq{1,2,3}_compute.py` etc.) and
+reproduce all tables, figures, and `REPORT.md` locally in a few minutes.
 
 ---
 
-## 8) Robustness checks (do at least 3)
-1) **Alternative control screening strictness:**
-   - stricter fingerprint list vs relaxed list; verify RQ2 stability.
-2) **Exclude dependency update PRs** (Dependabot/Renovate as authors) in RQ3 sensitivity runs.
-3) **Time alignment sensitivity** (if you implement adoption timestamps):
-   - restrict PRs to those created after observed adoption.
-4) **Language stratification**:
-   - repeat RQ2/RQ3 for top languages separately.
-5) **Bot identity ablation**:
-   - measure interventions using only known bot identities vs bot+keyword patterns.
+## Repository layout
+
+```
+analysis/
+  scripts/      Phase A–E pipeline scripts
+  tables/       Headline CSVs + *_headline.json files
+  figures/      Paired PNG + PDF for every figure
+  REPORT.md     Generated Report (Jinja template + canonical CSVs)
+configs/        Versioned rule sets (tools, bots, fingerprints, patterns)
+data_raw/
+  aidev/        AIDev parquet snapshot (download target, gitignored)
+  github_cache/ Cached GitHub API responses (gitignored)
+data_derived/   Per-run outputs; <YYYY-MM-DD>/ + 'latest' symlink
+docs/           STUDY_DESIGN.md (full protocol)
+notebooks/      Tutorial notebooks (Jupytext-paired)
+.claude/        Claude Code subagents, hooks, skills (optional)
+```
+
+For details on the directory structure, the Claude Code hooks, and the
+agent allowlists, see [`SETUP.md`](SETUP.md).
 
 ---
 
-## 9) Threats to validity (pre-write these)
-- **Configured adoption vs enforcement:** presence of configs/workflows may not imply consistent execution.
-- **Control cohort misclassification:** cannot prove absence of agentic PRs; only “no observed” under rules.
-- **Selection bias in interventions:** tools intervene more on riskier PRs; interpret RQ3 as correlation.
-- **Clustering:** PRs are nested in repos; use fixed effects/random intercepts or matched analyses.
-- **Look-ahead bias:** detecting tooling from the current repo state can misattribute past PRs; mitigate with adoption timestamps or sensitivity restrictions.
+## Study design and citation
+
+The full protocol (research questions, operational definitions, runbook,
+statistical plan, rule sets, robustness checks, threats to validity) is
+in [`docs/STUDY_DESIGN.md`](docs/STUDY_DESIGN.md). Pre-registered tests
+are listed in §7 of that document.
+
+If you build on this work, please cite the AIDev dataset along with this
+study:
+
+```bibtex
+@misc{aidev-security-study,
+  title  = {{Security Tooling Adoption \& Intervention in AI-Assisted Software Development}},
+  author = {Huy Tran},
+  year   = {2026},
+  note   = {Anonymous submission},
+}
+
+@misc{li2025aidev,
+  title  = {{AIDev: Studying AI Coding Agents on GitHub}},
+  author = {Li, Hao and others},
+  year   = {2025},
+  eprint = {2507.15003},
+  doi    = {10.5281/zenodo.16919272},
+}
+```
 
 ---
 
-## 10) Reporting checklist (what to include in the final paper)
-- Exact dataset version and tables used (including the inline-comment
-  table choice — `pr_review_comments_v2` by default — recorded in
-  `run_manifest.json`)
-- Exact API endpoints and rate-limit handling
-- Exact rule sets (tools, bots, fingerprints, security keywords), versioned
-- Matching method + balance diagnostics (SMD table)
-- Primary models + effect sizes + BH-adjusted p-values
-- Singleton-repo drop count for RQ3 FE models (logged in
-  `analysis/tables/rq3_main.csv`)
-- Pre-declared minimum detectable effect sizes (MDEs) per test family,
-  recorded in `analysis/tables/power_analysis.csv` with both `pre-flight`
-  and `post-hoc` rows. Underpowered families (achieved power < 0.80) are
-  flagged in `analysis/REPORT.md §6`.
-- Sensitivity analyses summary (≥3 from §8)
-- Reproducibility: seed, caching strategy, derived data schema, and a
-  passing reproducibility audit against `data_derived/latest`.
-- `analysis/REPORT.md` is generated by `analysis/scripts/build_report.py`
-  from the Jinja template + canonical CSVs; the pre-commit hook refuses
-  to commit a `REPORT.md` whose `_run_id` frontmatter doesn't match
-  `data_derived/latest/`.
+## License
 
----
-
-## 11) References
-- MSR 2026: Mining Challenge: https://2026.msrconf.org/track/msr-2026-mining-challenge#Call-for-Mining-Challenge-Papers 
-- AIDev Dataset Preprint: https://arxiv.org/abs/2507.15003 
-- Dataset DOI: https://zenodo.org/records/16919272
-- Who Said CVE? How Vulnerability Identifiers Are Mentioned by Humans, Bots, and Agents in Pull Requests: Rooijendijk et al. Link: https://arxiv.org/abs/2601.19636 
-- Security in the Age of AI Teammates: An Empirical Study of Agentic Pull Requests on GitHub: https://arxiv.org/abs/2601.00477 
-- Agentic AI Security: Threats, Defenses, Evaluation, and Open Challenges: Chhabra et al. Link: https://arxiv.org/abs/2510.23883 
-- Claude Code security review: https://github.com/anthropics/claude-code-security-review
+MIT — see [`LICENSE`](LICENSE). The AIDev dataset itself is released under
+CC BY 4.0 by its authors and remains subject to the original repositories'
+licenses; see [`data_raw/aidev/README.md`](data_raw/aidev/README.md) for
+details.
