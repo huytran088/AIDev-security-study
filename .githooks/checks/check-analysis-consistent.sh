@@ -16,7 +16,7 @@ CURRENT_DATASET_SHA=$(jq -r '.aidev_dataset.version_commit // .aidev_dataset_sha
 
 # Each *_main.csv must record the run_id it was generated against, in a
 # leading comment row or in a sibling _provenance.json. We use the latter
-# convention (rq{1,2,3}_compute.py writes it) — see SETUP.md §12.
+# convention (rq{1,2,3}_compute.py writes it).
 fail=0
 for csv in analysis/tables/*_main.csv; do
   [ -f "$csv" ] || continue
