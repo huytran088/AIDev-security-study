@@ -2,15 +2,15 @@
 # render_notebooks.sh — refresh the four Jupytext-paired tutorial notebooks
 # from their .py percent-format twins under analysis/notebooks/.
 #
-# Per the reporter agent contract:
-#   - .py is the source of truth (authored by the reporter)
+# Notebook contract:
+#   - .py is the source of truth
 #   - .ipynb is regenerated from .py via `jupytext --set-formats ipynb,py:percent`
 #   - cells are then executed via `jupytext --execute` so the rendered
 #     .ipynb has populated outputs against analysis/tables/ and
 #     analysis/figures/
 #
 # This script must be idempotent: running it twice produces identical
-# .ipynb output. All Python through `uv run` per CLAUDE.md.
+# .ipynb output. All Python invocations go through `uv run`.
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"

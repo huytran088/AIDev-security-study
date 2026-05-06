@@ -552,17 +552,14 @@ keywords.
 - **seed**: `20260101` from `.env`.
 - **uv lockfile**: sha256 `7288071d8decbff1…`,
   Python `3.12.8`.
-- **§12 audit checklist**: run the `reproducibility-auditor` agent
-  against this `data_derived/latest/`. Read-only, no GitHub MCP.
+- **Reproducibility audit**: re-run the pipeline against this
+  `data_derived/latest/` and verify outputs are byte-identical.
 
 To rebuild from scratch:
 
 ```bash
 uv sync --frozen
-claude --agent data-miner          # Phases A–C
-claude --agent intervention-classifier  # Phase D
-claude --agent analyst             # Phase E compute
-claude --agent reporter            # Phase E display (this report)
+bash analysis/scripts/build_all.sh
 ```
 
 ---
@@ -701,8 +698,8 @@ Buildkite, or self-hosted Jenkins is invisible to Phase C.
 **§11.3.2 Curation selects on visible self-attribution.** AIDev's
 classifier and `configs/agent_fingerprints.yaml` both reward agents
 that announce themselves in PR bodies and commit trailers. "Agentic"
-therefore skews toward verbose-attribution agents (Claude Code,
-Devin, Codex, Cursor) over silent ones, which affects both arms of
+therefore skews toward verbose-attribution agents (Devin, Codex,
+Cursor and similar) over silent ones, which affects both arms of
 every RQ3 within-repo comparison.
 
 ### §11.4 Statistical-conclusion validity

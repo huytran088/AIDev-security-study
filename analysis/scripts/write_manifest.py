@@ -1,10 +1,9 @@
 """Reusable run-manifest writer.
 
-Implements the recipe in `.claude/skills/run-manifest/SKILL.md`. Every phase
-(A/B/C via data-miner, D via intervention-classifier, E via analyst) imports
-this helper rather than hand-rolling a manifest, so the schema stays uniform.
+Every phase (A/B/C, D, E) imports this helper rather than hand-rolling a
+manifest, so the schema stays uniform.
 
-Differences from the skill sketch:
+Implementation notes:
 - `data_raw/aidev/` is a Hugging Face parquet drop, not a git working tree,
   so we fall back to the `AIDEV_DATASET_VERSION` env var (set in `.env`).
 - The skill says version_header should come from a `# YYYY-MM-DD` comment

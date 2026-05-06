@@ -35,11 +35,17 @@ data_derived/**/*.parquet.crc
 # Keep run_manifest.json and other small JSONs (allow-list overrides above):
 !data_derived/**/*.json
 
-# ── per-session scratch (per SETUP.md §2) ───────────────────
+# ── per-session scratch ─────────────────────────────────────
 tasks/
 
-# ── runtime logs (incl. github-mcp-audit.log; see SETUP.md §5.5) ──
+# ── runtime logs ────────────────────────────────────────────
 logs/
 
 # ── git-lfs cache (don't commit pointers' blob content) ─────
 .git-lfs/
+
+# ── local tooling scaffolding (not part of study artifacts) ─
+.claude/
+.mcp.json
+CLAUDE.md
+SETUP.md

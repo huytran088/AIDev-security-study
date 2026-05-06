@@ -23,7 +23,7 @@ Notes on AIDev schema (verified at runtime, not assumed):
   those have to be aggregated from `pr_commit_details` keyed by `pr_id`.
 - `repository` has: id, url, license, full_name, language, forks, stars.
   There is NO `created_at` or `owner_type` — Phase B will pull those from
-  the GitHub MCP. ai_repos.csv carries forward what AIDev does have.
+  the GitHub API. ai_repos.csv carries forward what AIDev does have.
 - repo_full_name is the canonical key. We derive it from `repo_url` on the
   PR side ("https://api.github.com/repos/owner/name" -> "owner/name") and
   cross-check against `repository.full_name` via `repo_id`.

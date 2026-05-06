@@ -1,8 +1,7 @@
-"""Provenance JSON writer for analyst compute scripts.
+"""Provenance JSON writer for the RQ compute scripts.
 
-Per `.claude/agents/analyst.md`, every `rq{1,2,3}_compute.py` (and
-`robustness.py`) must write a sibling `*_provenance.json` for each
-`*_main.csv` it emits, with:
+Every `rq{1,2,3}_compute.py` (and `robustness.py`) must write a sibling
+`*_provenance.json` for each `*_main.csv` it emits, with:
 
     run_id              -- BASENAME of the data_derived/latest symlink
                            target (the dated directory name, e.g.

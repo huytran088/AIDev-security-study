@@ -1,6 +1,6 @@
 # Security Tooling Adoption & Intervention in AI-Assisted Software Development (AIDev)  
 
-> **Operational setup lives in [`SETUP.md`](./SETUP.md).** This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). `SETUP.md` covers the Claude Code workflow: uv-managed Python env, the `hf` CLI for AIDev access, MCP servers (GitHub + filesystem), the six subagents (`data-miner` for Phases A/B/C, `intervention-classifier` for Phase D, `analyst` for Phase E compute, `reporter` for Phase E display — tutorial notebooks + REPORT.md, `reproducibility-auditor` for the §12 pre-publication audit, `code-simplifier` for tech-debt cleanup), the eleven `.claude/skills/` (now including `power-analysis` for pre-declared MDEs), the eleven `.claude/hooks/` that enforce protected paths and manifest writing, and the `.githooks/` pre-commit chain that blocks commits where `analysis/REPORT.md` or `analysis/tables/*_main.csv` disagree with `data_derived/latest/`. Read this file to understand *what* the study does; read `SETUP.md` to actually run it.
+This README is the study design (RQs, definitions, runbook, statistical plan, rule sets). The end-to-end pipeline runner is `analysis/scripts/build_all.sh`; the `.githooks/` pre-commit chain blocks commits where `analysis/REPORT.md` or `analysis/tables/*_main.csv` disagree with `data_derived/latest/`.
 
 ## 0) Scope and goals
 This project studies **security tooling configuration (adoption)** at the repository level and **security automation intervention** at the pull-request (PR) level, using:
@@ -109,7 +109,7 @@ Goal: Run Fisher/OR, regressions, BH correction; run robustness checks and docum
 
 ### Step 0 — Environment & reproducibility setup
 
-> Concrete commands for everything below — repo scaffolding, uv environment, `hf` CLI for the AIDev download, MCP config, subagents — are in [`SETUP.md`](./SETUP.md) §§ 2–4. The bullets here are the *requirements*; `SETUP.md` is the *recipe*.
+The bullets below are the *requirements* for the environment. Concrete setup uses `uv` for Python and the `hf` CLI for AIDev dataset download.
 
 1) Create a repo for the study with:
    - `README.md` (this project)
@@ -131,9 +131,8 @@ Goal: Run Fisher/OR, regressions, BH correction; run robustness checks and docum
      §6.1 below),
    - row counts of every output table.
 
-   See `SETUP.md §7.6` for the canonical schema; the `run-manifest` skill
-   ships a `write_manifest()` helper that both `data-miner` and
-   `intervention-classifier` should call before exiting.
+   `analysis/scripts/write_manifest.py` ships the canonical schema and a
+   `write_manifest()` helper; every phase calls it before exiting.
 
 ---
 
@@ -251,11 +250,10 @@ For each AI repo:
    - match distribution of PR sizes to agentic PRs using churn proxies (files changed, additions, deletions),
    - optionally match by task type if available.
 
-> **Canonical recipe:** see the `human-pr-sampling` skill (`SETUP.md §7.8`)
-> for the per-repo churn-quartile binning, sampling without replacement
-> via `numpy.random.default_rng(RANDOM_SEED)`, and shortfall logging to
-> `human_pr_sample_log.csv`. The `intervention-classifier` subagent
-> (`SETUP.md §6.3`) owns this step.
+> **Canonical recipe:** per-repo churn-quartile binning, sampling
+> without replacement via `numpy.random.default_rng(RANDOM_SEED)`, with
+> shortfall logging to `human_pr_sample_log.csv`. Implementation lives
+> in `analysis/scripts/phase_d_interventions.py`.
 
 **Deliverable:** `human_pr_sample.parquet`
 
@@ -276,8 +274,7 @@ Intervention sources (in priority order):
 > **Inline-comment table choice:** AIDev ships both `pr_review_comments`
 > (the v1 19,450-row table) and `pr_review_comments_v2`. Default to
 > `pr_review_comments_v2` for Phase D and record the choice (and row
-> count) in `run_manifest.json`. See the `intervention-rules` skill in
-> `SETUP.md §7.4`.
+> count) in `run_manifest.json`.
 
 > Keep a mapping file `configs/security_bots.txt` listing logins for Dependabot, Renovate, etc., plus any discovered tool bots.
 
@@ -357,10 +354,9 @@ Outcomes:
 > **Singleton-repo drop (mandatory for FE validity):** before fitting any
 > repo-FE model, drop repos that don't contain both `pr_type=='agentic'`
 > and `pr_type=='human'` rows in the analysis frame. The FE coefficient is
-> degenerate otherwise (all variation lives in the omitted category). The
-> `repo-fixed-effects` skill (`SETUP.md §7.9`) ships the one-line filter
-> idiom and a worked statsmodels example; the `analyst` agent must
-> document the singleton drop count in `analysis/tables/rq3_main.csv`.
+> degenerate otherwise (all variation lives in the omitted category).
+> `analysis/scripts/rq3_compute.py` applies the filter and documents the
+> singleton drop count in `analysis/tables/rq3_main.csv`.
 
 Recommended models:
 - Binary: logistic regression with **repo fixed effects** (or random intercept):
@@ -421,16 +417,14 @@ If you keep your nonparametric/effect-size stack (acceptable as secondary):
 - Pre-declared minimum detectable effect sizes (MDEs) per test family,
   recorded in `analysis/tables/power_analysis.csv` with both `pre-flight`
   and `post-hoc` rows. Underpowered families (achieved power < 0.80) are
-  flagged in `analysis/REPORT.md §6`. See `SETUP.md §7.11` for the
-  pre-declared targets.
+  flagged in `analysis/REPORT.md §6`.
 - Sensitivity analyses summary (≥3 from §8)
 - Reproducibility: seed, caching strategy, derived data schema, and a
-  passing run of the `reproducibility-auditor` subagent against
-  `data_derived/latest` (see `SETUP.md §12`)
-- `analysis/REPORT.md` is generated by the `reporter` subagent from the
-  Jinja template + canonical CSVs; the pre-commit hook
-  (`SETUP.md §5.14`) refuses to commit a `REPORT.md` whose
-  `_run_id` frontmatter doesn't match `data_derived/latest/`.
+  passing reproducibility audit against `data_derived/latest`.
+- `analysis/REPORT.md` is generated by `analysis/scripts/build_report.py`
+  from the Jinja template + canonical CSVs; the pre-commit hook refuses
+  to commit a `REPORT.md` whose `_run_id` frontmatter doesn't match
+  `data_derived/latest/`.
 
 ---
 
