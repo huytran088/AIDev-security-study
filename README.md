@@ -232,8 +232,8 @@ After `git lfs pull`, you can skip directly to Phase E
 `REPORT.md` locally in a few minutes — no GitHub or Hugging Face token
 required for the analysis stage.
 
-> **Mirror.** If GitHub LFS bandwidth is exhausted (free tier: 1 GB
-> / month), the same tree mirrors as an anonymous [Google Drive
+> **Mirror:** If GitHub LFS bandwidth is exhausted (free tier: 1 GB
+> / month), download the data from [Google Drive
 > archive](https://drive.google.com/drive/folders/1md1_Unw-_H6gwIlfc8Y1JNNakPIVPZKh?usp=sharing).
 
 ---
