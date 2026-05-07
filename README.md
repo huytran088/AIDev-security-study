@@ -47,6 +47,10 @@ the singleton-repo drop.
 
 Top-3 tools: Dependabot 29.7%, CodeQL 16.7%, Renovate 5.3%.
 
+<p align="center">
+  <img src="analysis/figures/rq1_adoption_by_category.png" alt="Adoption by category" width="500"/>
+</p>
+
 ### RQ2 — AI repos vs matched controls
 
 3 categories and 4 tools are significantly more common in AI repos
@@ -62,8 +66,12 @@ Top-3 tools: Dependabot 29.7%, CodeQL 16.7%, Renovate 5.3%.
 
 Categories with the same direction: **SCA** (OR 3.36), **SAST** (OR 3.12),
 **CI hardening** (OR 2.87). 15 sparse-band tools (e.g., Semgrep, Snyk,
-Trivy, Gitleaks) were excluded from BH testing for low cell counts; full
-list in the JSON.
+Trivy, Gitleaks) were excluded from BH testing for low cell counts; as shown in the figures below.
+
+<p align="center">
+  <img src="analysis/figures/rq2_category_rates.png" alt="Category-level adoption" width="500"/>
+  <img src="analysis/figures/rq2_tool_forest.png" alt="Per-tool odds ratios" width="500">
+</p>
 
 ### RQ3 — Agentic vs human PRs (same repos)
 
@@ -77,9 +85,13 @@ same repos, but are **far more likely to be rejected**. Source:
 | security intervention count | **IRR = 0.69** | (0.49, 0.97) | 0.031 | Poisson (NB fallback) |
 | PR rejected (closed unmerged) | **OR = 6.72** | (4.59, 9.84) | 1.2e-22 | logit + repo FE |
 
+<p align="center">
+  <img src="analysis/figures/rq3_outcomes_forest.png" alt="Within-repo effects of agent authorship" width="500"/>
+</p>
+
 ### Figures
 
-All figures live under [`analysis/figures/`](analysis/figures/) as paired
+All figures are in [`analysis/figures/`](analysis/figures/) directory as paired
 PNG + PDF.
 
 - RQ1: [adoption by category](analysis/figures/rq1_adoption_by_category.png) ·
@@ -116,7 +128,7 @@ PNG + PDF.
 ### 1. Clone and install
 
 ```bash
-git clone <repo-url> AIDev-security-study
+git clone https://github.com/huytran088/AIDev-security-study.git # HTTPS
 cd AIDev-security-study
 uv sync           # installs pinned deps from uv.lock
 ```
@@ -147,6 +159,7 @@ AIDEV_DATASET_DOI=10.5281/zenodo.16919272
 ### 3. Pull the AIDev dataset from Hugging Face
 
 ```bash
+mkdir data_raw/  # Make one if you don't have the folder
 uv run python -c "
 from huggingface_hub import snapshot_download
 snapshot_download(
@@ -159,8 +172,7 @@ snapshot_download(
 ```
 
 This populates `data_raw/aidev/*.parquet` (`pull_request`,
-`pr_comments`, `pr_reviews`, `pr_review_comments_v2`, `all_repository`,
-…). The raw inputs are read-only thereafter.
+`pr_comments`, `pr_reviews`, `pr_review_comments_v2`, `all_repository`, etc.)
 
 ### 4. Run the phases
 
@@ -201,11 +213,6 @@ After the pipeline completes, headline tables land under
 [`analysis/tables/`](analysis/tables/), figures under
 [`analysis/figures/`](analysis/figures/), and the rendered narrative at
 [`analysis/REPORT.md`](analysis/REPORT.md).
-
-> The agent-driven workflow (data-miner → intervention-classifier →
-> analyst → reporter) is documented in [`CLAUDE.md`](CLAUDE.md) and
-> [`SETUP.md`](SETUP.md). It produces identical artifacts; the scripts
-> above are the canonical entry points either way.
 
 ---
 
@@ -285,5 +292,5 @@ study:
 
 MIT — see [`LICENSE`](LICENSE). The AIDev dataset itself is released under
 CC BY 4.0 by its authors and remains subject to the original repositories'
-licenses; see [`data_raw/aidev/README.md`](data_raw/aidev/README.md) for
+licenses; see [`data_raw/aidev/README.md`](@hao_li/aidev/README.md) for
 details.
