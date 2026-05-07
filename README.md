@@ -20,7 +20,7 @@ The study answers three questions:
 Design is matched at the repo level (RQ2, CEM on language × stars × age ×
 owner type) and within-repo at the PR level (RQ3, repo fixed effects on
 agentic vs human PRs). All hypothesis tests pre-declared in
-[`docs/STUDY_DESIGN.md §7`](docs/STUDY_DESIGN.md). The full report
+[`docs/STUDY_DESIGN.md #7`](docs/STUDY_DESIGN.md). The full report
 is at [`analysis/REPORT.md`](analysis/REPORT.md).
 
 ---
@@ -262,7 +262,7 @@ notebooks/      Tutorial notebooks (Jupytext-paired)
 The full protocol (research questions, operational definitions, runbook,
 statistical plan, rule sets, robustness checks, threats to validity) is
 in [`docs/STUDY_DESIGN.md`](docs/STUDY_DESIGN.md). Pre-registered tests
-are listed in §7 of that document.
+are listed in section 7 of that document.
 
 If you build on this work, please cite the AIDev dataset along with this
 study:
