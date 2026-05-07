@@ -117,10 +117,6 @@ PNG + PDF.
 - **~30 GB free disk** for the AIDev parquet snapshot
   (`data_raw/aidev/`) and the GitHub response cache
   (`data_raw/github_cache/`).
-- **Node.js 18+** (optional) — only required for the GitHub MCP server
-  used by the agent-driven workflow in [`SETUP.md`](SETUP.md). The raw
-  scripts under `analysis/scripts/` run standalone without it.
-
 ---
 
 ## Instructions
