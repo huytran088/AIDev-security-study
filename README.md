@@ -120,9 +120,6 @@ PNG + PDF.
 - **Node.js 18+** (optional) — only required for the GitHub MCP server
   used by the agent-driven workflow in [`SETUP.md`](SETUP.md). The raw
   scripts under `analysis/scripts/` run standalone without it.
-- **Claude Code** (optional) — the subagent recipes in
-  [`CLAUDE.md`](CLAUDE.md) are convenience wrappers; everything is
-  reproducible without them.
 
 ---
 
@@ -228,10 +225,10 @@ repository via [Git-LFS](https://git-lfs.com/), alongside the CSVs,
 JSONs, and `data_derived/latest` symlink that are tracked in plain git.
 
 ```bash
-git lfs install         # one-time per machine
-git clone <repo-url> AIDev-security-study
+git lfs install      
+git clone https://github.com/huytran088/AIDev-security-study.git
 cd AIDev-security-study
-git lfs pull            # materializes parquet + figure blobs
+git lfs pull     
 ```
 
 After `git lfs pull`, you can skip directly to Phase E
@@ -240,8 +237,8 @@ After `git lfs pull`, you can skip directly to Phase E
 required for the analysis stage.
 
 > **Mirror.** If GitHub LFS bandwidth is exhausted (free tier: 1 GB
-> egress / month), the same tree mirrors as an anonymous Google Drive
-> archive — **link to be added on publication**.
+> / month), the same tree mirrors as an anonymous [Google Drive
+> archive](https://drive.google.com/drive/folders/1md1_Unw-_H6gwIlfc8Y1JNNakPIVPZKh?usp=sharing).
 
 ---
 
@@ -260,11 +257,7 @@ data_raw/
 data_derived/   Per-run outputs; <YYYY-MM-DD>/ + 'latest' symlink
 docs/           STUDY_DESIGN.md (full protocol)
 notebooks/      Tutorial notebooks (Jupytext-paired)
-.claude/        Claude Code subagents, hooks, skills (optional)
 ```
-
-For details on the directory structure, the Claude Code hooks, and the
-agent allowlists, see [`SETUP.md`](SETUP.md).
 
 ---
 
@@ -286,12 +279,14 @@ study:
   note   = {Anonymous submission},
 }
 
-@misc{li2025aidev,
-  title  = {{AIDev: Studying AI Coding Agents on GitHub}},
-  author = {Li, Hao and others},
-  year   = {2025},
-  eprint = {2507.15003},
-  doi    = {10.5281/zenodo.16919272},
+@misc{li2025aiteammates,
+      title={The Rise of AI Teammates in Software Engineering (SE) 3.0: How Autonomous Coding Agents Are Reshaping Software Engineering}, 
+      author={Hao Li and Haoxiang Zhang and Ahmed E. Hassan},
+      year={2025},
+      eprint={2507.15003},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE},
+      url={https://arxiv.org/abs/2507.15003}, 
 }
 ```
 
@@ -301,5 +296,5 @@ study:
 
 MIT — see [`LICENSE`](LICENSE). The AIDev dataset itself is released under
 CC BY 4.0 by its authors and remains subject to the original repositories'
-licenses; see [`data_raw/aidev/README.md`](@hao_li/aidev/README.md) for
+licenses; see [`AIDev's GitHub`](https://github.com/SAILResearch/AI_Teammates_in_SE3) for
 details.
