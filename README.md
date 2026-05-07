@@ -69,8 +69,8 @@ Categories with the same direction: **SCA** (OR 3.36), **SAST** (OR 3.12),
 Trivy, Gitleaks) were excluded from BH testing for low cell counts; as shown in the figures below.
 
 <p align="center">
-  <img src="analysis/figures/rq2_category_rates.png" alt="Category-level adoption" width="500"/>
-  <img src="analysis/figures/rq2_tool_forest.png" alt="Per-tool odds ratios" width="500">
+  <img src="analysis/figures/rq2_category_rates.png" alt="Category-level adoption" width="49%"/>
+  <img src="analysis/figures/rq2_tool_forest.png" alt="Per-tool odds ratios" width="49%"/>
 </p>
 
 ### RQ3 — Agentic vs human PRs (same repos)
