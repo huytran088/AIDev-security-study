@@ -108,6 +108,9 @@ PNG + PDF.
 
 - **Python 3.11+** managed by [`uv`](https://docs.astral.sh/uv/) — `uv.lock`
   is committed and is part of the reproducibility contract.
+- **[Git-LFS](https://git-lfs.com/)** — figures and the canonical
+  `data_derived/2026-04-25/` parquets ship via LFS. Run `git lfs install`
+  once, then `git lfs pull` after cloning.
 - **GitHub personal access token** (`public_repo` scope) for the control
   cohort + tooling-detection passes.
 - **Hugging Face token** with read access to the AIDev dataset.
@@ -219,20 +222,26 @@ After the pipeline completes, headline tables land under
 ## Pre-built derived data
 
 Re-running Phases A–D end-to-end against the GitHub API takes several
-hours and burns rate-limit budget. The full
-`data_derived/<YYYY-MM-DD>/` tree from the run that backs this README is
-released as an anonymous Google Drive archive — **link to be added on
-publication**.
-
-To use the snapshot, download the archive, unpack it into `data_derived/`
-so it lives at `data_derived/<YYYY-MM-DD>/`, and update the symlink:
+hours and burns rate-limit budget. To skip them, the canonical
+`data_derived/2026-04-25/` tree (16 parquets, ~70 MB) ships in this
+repository via [Git-LFS](https://git-lfs.com/), alongside the CSVs,
+JSONs, and `data_derived/latest` symlink that are tracked in plain git.
 
 ```bash
-ln -sfn <YYYY-MM-DD> data_derived/latest
+git lfs install         # one-time per machine
+git clone <repo-url> AIDev-security-study
+cd AIDev-security-study
+git lfs pull            # materializes parquet + figure blobs
 ```
 
-You can then skip directly to Phase E (`rq{1,2,3}_compute.py` etc.) and
-reproduce all tables, figures, and `REPORT.md` locally in a few minutes.
+After `git lfs pull`, you can skip directly to Phase E
+(`rq{1,2,3}_compute.py` etc.) and reproduce all tables, figures, and
+`REPORT.md` locally in a few minutes — no GitHub or Hugging Face token
+required for the analysis stage.
+
+> **Mirror.** If GitHub LFS bandwidth is exhausted (free tier: 1 GB
+> egress / month), the same tree mirrors as an anonymous Google Drive
+> archive — **link to be added on publication**.
 
 ---
 

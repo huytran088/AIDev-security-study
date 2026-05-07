@@ -35,6 +35,9 @@ data_derived/**/*.parquet.crc
 # Keep run_manifest.json and other small JSONs (allow-list overrides above):
 !data_derived/**/*.json
 
+# Allow-list the canonical run's parquets (committed via Git-LFS):
+!data_derived/2026-04-25/*.parquet
+
 # ── per-session scratch ─────────────────────────────────────
 tasks/
 

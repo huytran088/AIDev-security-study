@@ -6,8 +6,8 @@
 # ── binary types (no diff, no merge) ────────────────────────
 *.png filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
-*.parquet binary
-*.parquet.crc binary
+*.parquet filter=lfs diff=lfs merge=lfs -text
+*.parquet.crc filter=lfs diff=lfs merge=lfs -text
 *.gz binary
 *.zip binary
 *.xlsx binary
