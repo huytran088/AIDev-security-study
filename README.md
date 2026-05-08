@@ -204,9 +204,9 @@ Or run end-to-end in one shot:
 bash analysis/scripts/build_all.sh
 ```
 
-After the pipeline completes, headline tables land under
-[`analysis/tables/`](analysis/tables/), figures under
-[`analysis/figures/`](analysis/figures/), and the rendered narrative at
+After the pipeline completes, result tables land under
+[`analysis/tables/`](analysis/tables/), figures are under
+[`analysis/figures/`](analysis/figures/), and the report is at
 [`analysis/REPORT.md`](analysis/REPORT.md).
 
 ---
@@ -214,7 +214,7 @@ After the pipeline completes, headline tables land under
 ## Pre-built derived data
 
 Re-running Phases A–D end-to-end against the GitHub API takes several
-hours and burns rate-limit budget. To skip them, the canonical
+hours and burns rate-limit budget. To skip them, the 
 `data_derived/2026-04-25/` tree (16 parquets, ~70 MB) ships in this
 repository via [Git-LFS](https://git-lfs.com/), alongside the CSVs,
 JSONs, and `data_derived/latest` symlink that are tracked in plain git.
