@@ -3,7 +3,7 @@
 Empirical study of how security tooling is **configured** at the repository
 level and how security automation **intervenes** at the pull-request level
 when AI coding agents (Claude Code, Devin, Cursor, Codex, …) ship code.
-Built on the [AIDev v3 dataset](https://huggingface.co/datasets/hao-li/AIDev)
+Built on the [AIDev dataset](https://huggingface.co/datasets/hao-li/AIDev)
 (current subset: ≥100-star repos, from 2025-01-01 to 2025-07-31)
 plus a matched control cohort of repositories with no observed agentic
 PRs, fetched from GitHub API.
@@ -162,7 +162,6 @@ snapshot_download(
     repo_id='hao-li/AIDev',
     repo_type='dataset',
     local_dir='data_raw/aidev',
-    revision='v3',
 )
 "
 ```
